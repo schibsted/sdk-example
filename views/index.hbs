@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <title>{{pkgJson.name}}</title>
+    </head>
+    <body>
+        <p>Welcome To {{pkgJson.name}}!</p>
+        {{#if loggedIn}}
+        <p>You're logged in</p>
+        <button id="logout-btn">Log out</button>
+        {{else}}
+        <button id="login-btn">Click here to login</button>
+        <button id="login-async-btn">Click here to login (async)</button>
+        {{/if}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="{{config.sdkJsPath}}" charset="utf-8"></script>
+        <script>
+        // This stuff will ofc end up in the JS SDK
+        $( document ).ready(function() {
+            // TODO remove this Workaround
+            SPiD.Talk = {
+                response: function (id, data) {
+                    window[id](data);
+                }
+            }
+            var spid = new SPiD.default({
+                serverUrl: '{{config.spidBaseUrl}}',
+                popup: true,
+                useSessionCluester: false,
+                client_id: '{{config.clientId}}',
+                redirect_uri: window.location.toString()
+            });
+
+            spid.event.addListener('SPiD.logout', function (data) {
+                alert('Logged out from SPiD. Need to cancel out session');
+            });
+
+            // Check session
+            spid.hasSession();
+
+            $('#login-btn').click(function (e) {
+                e.preventDefault();
+                spid.login(window.location.href + 'safepage');
+            });
+
+            $('#login-async-btn').click(function (e) {
+                e.preventDefault();
+                setTimeout(function () {
+                    spid.login(window.location.href + 'safepage');
+                }, 100);
+            });
+
+            $('#logout-btn').click(function (e) {
+                spid.logout();
+            });
+        });
+        </script>
+    </body>
+</html>

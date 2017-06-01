@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Login successfull</title>
+    </head>
+    <body>
+        <h1>Logged in to {{name}}</h1>
+        <p>Welcome! This popup will close in {{closeTimeout}}ms.</p>
+        <button id="dont-close-btn" click="closeAfterCountDown=false">Don't close</button>
+        <script>
+            var closeAfterCountDown = true;
+            setTimeout(function () {
+                if(closeAfterCountDown) {
+                    window.close();
+                }
+            }, {{ closeTimeout }});
+        </script>
+    </body>
+</html>

@@ -1,0 +1,22 @@
+'use strict';
+
+const getenv = require('getenv');
+
+const config = {};
+
+config.env = getenv('NODE_ENV', 'development');
+config.debug = getenv('NODE_DEBUG', '');
+config.port = getenv.int('PORT', 9000);
+config.clientId = getenv('CLIENT_ID', '');
+// clientSecret and clientSignSecret need to be generated in self service
+config.clientSecret = getenv('CLIENT_SECRET', '');
+// TODO probably remove the trailing slash
+config.spidBaseUrl = getenv('SPID_URL', 'http://spp.dev/');
+config.hostname = getenv('HOSTNAME', 'localhost');
+config.bffUrl = getenv('BFF_URL', 'http://localhost:8000');
+config.cookieName = getenv('COOKIE_NAME', 'identity-code');
+config.cookieSecret = getenv('COOKIE_SECRET', 'cookie-signing-secret-123456');
+// TODO this needs to be loaded from CDN
+config.sdkJsPath = getenv('SDK_JS_PATH', 'https://d1eyydk7fcdlei.cloudfront.net/dev-v0.1/bundle.js');
+
+module.exports = config;
