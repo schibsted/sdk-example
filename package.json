@@ -1,11 +1,11 @@
 {
-	"name": "identity-web-example",
+	"name": "schibsted-sdk-example",
 	"version": "2.0.0",
 	"license": "MIT",
 	"main": "server.js",
 	"repository": {},
 	"scripts": {
-		"dev": "NODE_DEBUG=identity-web-sdk-node nodemon"
+		"dev": "NODE_DEBUG=schibsted-core-sdk-node nodemon"
 	},
 	"dependencies": {
 		"express": "^4.15.3",
