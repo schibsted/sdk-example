@@ -14,8 +14,8 @@
 		"hbs": "^4.0.1",
 		"helmet": "^3.6.1",
 		"node-fetch": "^1.7.0",
-		"schibsted-core-sdk-node": "0.0.12",
-		"schibsted-identity-sdk": "0.0.18"
+		"schibsted-core-sdk-node": "*",
+		"schibsted-identity-sdk": "*"
 	},
 	"devDependencies": {
 		"eslint": "^3.19.0",
