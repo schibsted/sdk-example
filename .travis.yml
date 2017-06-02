@@ -3,3 +3,12 @@ sudo: false
 node_js:
 - '8'
 install: npm install
+deploy:
+  provider: s3
+  access_key_id: AKIAIEHWMEUQG7EBGRNQ
+  secret_access_key:
+    secure: NscB2g0V4pZWRjkanIbksgdMrKyryXm0ZF5PC7vqthmrtfH4URSVYZZDDg4P6TfJvnYSMdE1PCHUFXryP4UBnXEhhBO1WrisIfbDjRfR4+GsmJh2GBkFW98JylQmsZtVUsItv6aywL2lFWOiR4Dj7oa5+PzskutRbcJtugrKQce/EVbRq4FnLExARm5AeH+soKifd+KKSrrTLgJ12MUxHIHqW6bdlndDcb4FaVcoWTE8FEaEm41dpXqHYvXoM0yvunpQtdxE5dyYD/B/aWzXokaPEp9keNHTMgBvKeb4sa5WsduEC6Z9BzHGM4nXkJ+SWooUSD8TbKOgl5tvRPqN8SQmQMM2/5w1oZX05hmjTsrdvBR2Mzt8x7Jz5IEEnu44nhNP1xDJE1Kzo53cx3PFoznXCRASSZCYC3rH4fyhJ8AWUBSSi6X59zaI8Re4AIiIrhNaZUGLq/lTMrTjL5vyg+Jy086FlkxNGyDLMbOi7AfDd96mfvboTYRf9/idv1fGN9cVPNqeOy4xg8l4sgCD2sqW6PbXXrFiqPmNcNAUvzGoFZdCApo6YqclCG79qoTCERGl0GjE1LY8PXlryQ8Amvh1Ysr/oF8JsWMk6U54aez9KcAuGIKxfX/g9OuqVC+wPcLIuNNOy+zSyUbM+WB8/clOBiS6ewN6jFqo6Z2IsSM=
+  bucket: schibsted-sdk-example
+  acl: authenticated_read
+  on:
+    repo: schibsted/sdk-example
