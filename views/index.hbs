@@ -5,7 +5,10 @@
         <title>{{pkgJson.name}}</title>
     </head>
     <body>
-        <p>Welcome To {{pkgJson.name}} v{{pkgJson.version}}!</p>
+        <p>
+            Welcome To <a href="https://github.com/schibsted/sdk-example">
+            {{pkgJson.name}} v{{pkgJson.version}}</a>!
+        </p>
         {{#if loggedIn}}
         <p>You're logged in</p>
         <button id="logout-btn">Log out</button>
