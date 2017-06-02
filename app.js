@@ -1,5 +1,6 @@
 'use strict';
 
+const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const helmet = require('helmet');
@@ -13,7 +14,7 @@ const spidSrvApi = new ServerApi(fetch, config.spidBaseUrl, config.clientId, con
 
 const app = express();
 
-const redirectUri = (path) => `http://${config.hostname}:${config.port}/${path}`;
+const redirectUri = (_path) => `http://${config.hostname}:${config.port}/${_path}`;
 
 // @see https://github.com/pillarjs/hbs
 app.set('view engine', 'hbs');
@@ -29,7 +30,7 @@ app.use(session({
 
 // No favicon
 app.get('/favicon.ico', function (req, res) {
-    res.status(404).end();
+    res.sendFile(path.resolve(__dirname, 'views/img/favicon.png'));
 });
 
 app.get('/', function (req, res) {
