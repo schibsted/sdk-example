@@ -14,7 +14,10 @@ const spidSrvApi = new ServerApi(fetch, config.spidBaseUrl, config.clientId, con
 
 const app = express();
 
-const redirectUri = (_path) => `http://${config.hostname}:${config.port}/${_path}`;
+const redirectUri = (uriPath) => {
+    const port = (config.env === 'production') ? '' : `:${config.port}`;
+    return `${config.protocol}://${config.hostname}${port}${uriPath}`;
+};
 
 // @see https://github.com/pillarjs/hbs
 app.set('view engine', 'hbs');
