@@ -163,7 +163,13 @@
             });
 
             $('#logout-btn').click(function (e) {
-                spid.logout();
+                // TEMPORARY HACK UNTIL LOGOUT WORKS IN THE browser-sdk API
+                var oReq = new XMLHttpRequest();
+                oReq.addEventListener("load", function(e) {
+                    window.location.reload(true);
+                });
+                oReq.open("DELETE", '/session');
+                oReq.send();
             });
         });
         </script>

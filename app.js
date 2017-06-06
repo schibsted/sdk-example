@@ -82,6 +82,11 @@ app.get('/tokenpage', function (req, res) {
     res.render('tokenpage', { data: req });
 });
 
+app.delete('/session', (req, res) => {
+    res.clearCookie(`${pkgJson.name}_session_id`);
+    res.status(204).end();
+});
+
 // For any route not found
 app.use((req, res, next) => {
     const error = new Error(`Invalid route: ${req.originalUrl}`);
