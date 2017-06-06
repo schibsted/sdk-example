@@ -1,6 +1,5 @@
 'use strict';
 
-const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const helmet = require('helmet');
@@ -27,7 +26,7 @@ app.use(helmet());
 app.use(session({
     name: `${pkgJson.name}_session_id`,
     secret: config.cookieSecret,
-    resave: false,
+    resave: true,
     saveUninitialized: false
 }));
 
@@ -56,6 +55,7 @@ app.get('/safepage', function (req, res) {
             (response) => {
                 console.log('-------------and here is our response:', response);
                 schIdentity.token.introspect(spidSrvApi, response.access_token).then(console.log, console.error);
+                req.session.token = response.access_token;
                 // tokenIntrospection(response.access_token).then(console.log, console.error);
                 res.render('safepage', { closeTimeout: 2000 });
             },
