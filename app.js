@@ -31,10 +31,7 @@ app.use(session({
     saveUninitialized: false
 }));
 
-// No favicon
-app.get('/favicon.ico', function (req, res) {
-    res.sendFile(path.resolve(__dirname, 'views/img/favicon.png'));
-});
+app.use('/public', express.static('public'));
 
 app.get('/', function (req, res) {
     res.render('index', { pkgJson, config, loggedIn: req.session.token });
