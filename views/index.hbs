@@ -19,8 +19,9 @@
                     {{#if loggedIn}}
                         <button class="btn btn-secondary" id="logout-btn">Log out</button>
                     {{else}}
-                        <button class="btn btn-primary" id="login-btn">Login</button>
-                        <button class="btn btn-secondary" id="login-async-btn">Login (async)</button>
+                        <button class="btn btn-primary" id="login-btn">Login username/password</button>
+                        <button class="btn btn-primary" id="login-btn-email">Login passwordless email</button>
+                        <button class="btn btn-primary" id="login-btn-sms">Login passwordless sms</button>
                     {{/if}}
                 </div>
             </div>
@@ -153,6 +154,16 @@
             $('#login-btn').click(function (e) {
                 e.preventDefault();
                 spid.login(window.location.href + 'safepage');
+            });
+
+            $('#login-btn-email').click(function (e) {
+                e.preventDefault();
+                spid.login(window.location.href + 'safepage', 'otp-email');
+            });
+
+            $('#login-btn-sms').click(function (e) {
+                e.preventDefault();
+                spid.login(window.location.href + 'safepage', 'otp-sms');
             });
 
             $('#login-async-btn').click(function (e) {
