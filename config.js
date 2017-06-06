@@ -18,6 +18,6 @@ config.bffUrl = getenv('BFF_URL', 'http://localhost:8000');
 config.cookieName = getenv('COOKIE_NAME', 'identity-code');
 config.cookieSecret = getenv('COOKIE_SECRET', 'cookie-signing-secret-123456');
 // TODO this needs to be loaded from CDN
-config.sdkJsPath = getenv('SDK_JS_PATH', 'https://d1eyydk7fcdlei.cloudfront.net/dev-v0.1/bundle.js');
+config.sdkJsPath = getenv('SDK_JS_PATH', 'https://d3iwtia3ndepsv.cloudfront.net/sdk/0.0.15/schibsted-browser-sdk.js');
 
 module.exports = config;
