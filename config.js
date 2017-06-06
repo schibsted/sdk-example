@@ -12,6 +12,7 @@ config.clientId = getenv('CLIENT_ID', '');
 config.clientSecret = getenv('CLIENT_SECRET', '');
 // TODO probably remove the trailing slash
 config.spidBaseUrl = getenv('SPID_URL', 'http://spp.dev/');
+config.protocol = getenv('PROTOCOL', 'http');
 config.hostname = getenv('HOSTNAME', 'localhost');
 config.bffUrl = getenv('BFF_URL', 'http://localhost:8000');
 config.cookieName = getenv('COOKIE_NAME', 'identity-code');
