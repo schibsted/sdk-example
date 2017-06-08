@@ -11,14 +11,14 @@ $(document).ready(function() {
     };
 
     const spid = new SPiD.default({
-        serverUrl: '{{config.spidBaseUrl}}',
+        serverUrl: window.config.spidBaseUrl,
         popup: true,
         useSessionCluster: false,
-        client_id: '{{config.clientId}}',
+        client_id: window.config.clientId,
         redirect_uri: window.location.toString()
     });
 
-    const safePage = `${window.location.protocol}://${window.location.hostname}/safepage`;
+    const safePage = `${window.location.origin}/safepage`;
 
     spid.event.addListener('SPiD.logout', function () {
         alert('Logged out from SPiD. Need to cancel out session');
@@ -27,26 +27,19 @@ $(document).ready(function() {
     // Check session
     spid.hasSession();
 
-    $('#login-btn').click(function (e) {
+    $('#login-user-pass').click(function (e) {
         e.preventDefault();
-        spid.login(window.location.href + 'safepage');
+        spid.login(safePage);
     });
 
-    $('#login-btn-email').click(function (e) {
+    $('#login-email').click(function (e) {
         e.preventDefault();
         spid.login(safePage, 'otp-email');
     });
 
-    $('#login-btn-sms').click(function (e) {
+    $('#login-sms').click(function (e) {
         e.preventDefault();
         spid.login(safePage, 'otp-sms');
-    });
-
-    $('#login-async-btn').click(function (e) {
-        e.preventDefault();
-        setTimeout(function () {
-            spid.login(safePage);
-        }, 100);
     });
 
     $('#logout-btn').click(function () {

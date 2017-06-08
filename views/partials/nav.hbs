@@ -1,17 +1,27 @@
 <nav class="navbar navbar-light bg-faded">
     <div class="d-flex justify-content-between">
         <a class="navbar-brand p-1" href="https://github.com/schibsted/sdk-example">
-            <img src="/public/logo-common-components.svg" width="30" height="30" class="d-inline-block align-top mr-1" alt="">
-            <span class="hidden-sm-down">{{pkgJson.name}} v{{pkgJson.version}}</span>
+            <img src="/public/logo-common-components.svg" width="30" height="30" class="d-inline-block align-top mr-1" alt="Logo">
+            <span class="hidden-sm-down">SDK Example</span>
         </a>
-        <div>
-            {{#if loggedIn}}
-                <button class="btn btn-secondary" id="logout-btn">Log out</button>
-            {{else}}
-                <button class="btn btn-primary" id="login-btn">Login username/password</button>
-                <button class="btn btn-primary" id="login-btn-email">Login passwordless email</button>
-                <button class="btn btn-primary" id="login-btn-sms">Login passwordless sms</button>
-            {{/if}}
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{#if loggedIn}}User Name{{else}}Login{{/if}}
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                {{#if loggedIn}}
+                    <button class="dropdown-item" id="logout-btn">Log out</button>
+                {{else}}
+                    <button class="dropdown-item" id="login-user-pass">Username &amp; Password</button>
+                    <h6 class="dropdown-header">Passwordless</h6>
+                    <button class="dropdown-item" id="login-email">With Email</button>
+                    <button class="dropdown-item" id="login-sms">With SMS</button>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="https://github.com/schibsted/sdk-example/issues/new">Support</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="https://github.com/schibsted/sdk-example" target="_blank">Code v{{pkgJson.version}}</a>
+                {{/if}}
+            </div>
         </div>
     </div>
 </nav>

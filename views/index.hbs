@@ -1,115 +1,40 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset='utf-8'>
-        <title>{{pkgJson.name}}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/png" href="/public/favicon.png">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    </head>
+<html lang="en">
+    {{> head}}
+
     <body>
         
         {{> nav}}
-
-        <section class="container">
+        
+        <section class="container-fluid">
             
             {{#if loggedIn}}
             <div class="alert alert-success mt-4" role="alert">
-                <strong>Well done!</strong> You've logged in to <strong>{{config.clientId}}</strong>.
+                <strong>Well done!</strong> You've logged in to clientId <strong>{{config.clientId}}</strong>.
             </div>
             {{/if}}
             
             <div class="row">
-                <div class="col my-3">
-                    <div class="card">
-                    <img class="card-img-top img-fluid" src="//placehold.it/1280x600/?text=&nbsp;">
-                    <div class="card-block">
-                        <h4 class="card-title">Donec laoreet sagittis nibh</h4>
-                        <p class="card-text">Maecenas dignissim justo sit amet ultricies ultricies. Duis sed ullamcorper eros. Donec nibh lacus, finibus nec urna at, lacinia rutrum.</p>
-                    </div>
-                    </div>
-                </div>
+                <div class="col my-3">{{> card}}</div>
             </div>
             
             <div class="row">
-                <div class="col-sm-6 col-md-4 col-lg-3 my-3">
-                    <div class="card">
-                    <img class="card-img-top img-fluid" src="//placehold.it/500x250?text=&nbsp;">
-                    <div class="card-block">
-                        <h4 class="card-title">Quisque eu erat nisl tellus</h4>
-                        <p class="card-text">Nunc nibh magna, bibendum vel pellentesque at, mollis vel nisl.</p>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3 my-3">
-                    <div class="card">
-                    <img class="card-img-top img-fluid" src="//placehold.it/500x250?text=&nbsp;">
-                    <div class="card-block">
-                        <h4 class="card-title">Pellentesque habitant morbi</h4>
-                        <p class="card-text">Vivamus efficitur elementum posuere. Ut viverra nunc nec mi.</p>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3 my-3">
-                    <div class="card">
-                    <img class="card-img-top img-fluid" src="//placehold.it/500x250?text=&nbsp;">
-                    <div class="card-block">
-                        <h4 class="card-title">Pellentesque habitant morbi</h4>
-                        <p class="card-text">Suspendisse tincidunt ante ac dui malesuada tempus. In mollis neque.</p>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3 my-3">
-                    <div class="card">
-                    <img class="card-img-top img-fluid" src="//placehold.it/500x250?text=&nbsp;">
-                    <div class="card-block">
-                        <h4 class="card-title">Suspendisse eu libero</h4>
-                        <p class="card-text">Nam vitae nisl ante. Sed eget nibh ullamcorper, euismod leo.</p>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3 my-3">
-                    <div class="card">
-                    <img class="card-img-top img-fluid" src="//placehold.it/500x250?text=&nbsp;">
-                    <div class="card-block">
-                        <h4 class="card-title">Lorem ipsum dolor</h4>
-                        <p class="card-text">Nullam ac finibus purus. Curabitur magna dui, cursus at scelerisque.</p>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3 my-3">
-                    <div class="card">
-                    <img class="card-img-top img-fluid" src="//placehold.it/500x250?text=&nbsp;">
-                    <div class="card-block">
-                        <h4 class="card-title">Praesent vestibulum tellus</h4>
-                        <p class="card-text">Praesent nec ligula in nibh pharetra auctor. Nullam imperdiet ex.</p>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3 my-3">
-                    <div class="card">
-                    <img class="card-img-top img-fluid" src="//placehold.it/500x250?text=&nbsp;">
-                    <div class="card-block">
-                        <h4 class="card-title">Lorem ipsum dolor</h4>
-                        <p class="card-text">Nullam ac finibus purus. Curabitur magna dui, cursus at scelerisque.</p>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3 my-3">
-                    <div class="card">
-                    <img class="card-img-top img-fluid" src="//placehold.it/500x250?text=&nbsp;">
-                    <div class="card-block">
-                        <h4 class="card-title">Praesent vestibulum tellus</h4>
-                        <p class="card-text">Praesent nec ligula in nibh pharetra auctor. Nullam imperdiet ex.</p>
-                    </div>
-                    </div>
-                </div>
+                <div class="col col-md-4 my-3">{{> card index='11'}}</div>
+                <div class="col col-md-4 my-3">{{> card index='23'}}</div>
+                <div class="col col-md-4 my-3">{{> card index='13'}}</div>
+                <div class="col col-md-4 my-3">{{> card index='45'}}</div>
+                <div class="col col-md-4 my-3">{{> card index='15'}}</div>
+                <div class="col col-md-4 my-3">{{> card index='84'}}</div>
+                <div class="col col-md-4 my-3">{{> card index='79'}}</div>
+                <div class="col col-md-4 my-3">{{> card index='8'}}</div>
+                <div class="col col-md-4 my-3">{{> card index='99'}}</div>
+                <div class="col col-md-4 my-3">{{> card index='10'}}</div>
             </div>
             
         </section>
 
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        
         <script src="{{config.sdkJsPath}}" charset="utf-8"></script>
         <script src="/public/index.js"></script>
         </script>
