@@ -1,0 +1,17 @@
+<nav class="navbar navbar-light bg-faded">
+    <div class="d-flex justify-content-between">
+        <a class="navbar-brand p-1" href="https://github.com/schibsted/sdk-example">
+            <img src="/public/logo-common-components.svg" width="30" height="30" class="d-inline-block align-top mr-1" alt="">
+            <span class="hidden-sm-down">{{pkgJson.name}} v{{pkgJson.version}}</span>
+        </a>
+        <div>
+            {{#if loggedIn}}
+                <button class="btn btn-secondary" id="logout-btn">Log out</button>
+            {{else}}
+                <button class="btn btn-primary" id="login-btn">Login username/password</button>
+                <button class="btn btn-primary" id="login-btn-email">Login passwordless email</button>
+                <button class="btn btn-primary" id="login-btn-sms">Login passwordless sms</button>
+            {{/if}}
+        </div>
+    </div>
+</nav>

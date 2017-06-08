@@ -5,6 +5,7 @@ env:
 rules:
     no-undefined: off
     no-var: off
+    no-alert: off
     no-unused-vars:
       - error
       - argsIgnorePattern: next

@@ -8,6 +8,7 @@ const schIdentity = require('schibsted-identity-sdk');
 const fetch = require('node-fetch');
 const config = require('./config');
 const pkgJson = require('./package');
+const hbs = require('hbs');
 
 const spidSrvApi = new ServerApi(fetch, config.spidBaseUrl, config.clientId, config.clientSecret);
 
@@ -18,6 +19,12 @@ const redirectUri = (uriPath) => {
     return `${config.protocol}://${config.hostname}${port}${uriPath}`;
 };
 
+app.set('views', './views');
+// register path to partials. Please note that the partials are cached into memory so the server
+// needs to re-run to consider the latest changes but this limitation doesn't exist for normal
+// view files.
+// @see https://www.npmjs.com/package/hbs#helpers-and-partials
+hbs.registerPartials('./views/partials');
 // @see https://github.com/pillarjs/hbs
 app.set('view engine', 'hbs');
 

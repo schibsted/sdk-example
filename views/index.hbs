@@ -8,24 +8,8 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     </head>
     <body>
-
-        <nav class="navbar navbar-light bg-faded">
-            <div class="d-flex justify-content-between">
-                <a class="navbar-brand p-1" href="https://github.com/schibsted/sdk-example">
-                    <img src="/public/logo-common-components.svg" width="30" height="30" class="d-inline-block align-top mr-1" alt="">
-                    <span class="hidden-sm-down">{{pkgJson.name}} v{{pkgJson.version}}</span>
-                </a>
-                <div>
-                    {{#if loggedIn}}
-                        <button class="btn btn-secondary" id="logout-btn">Log out</button>
-                    {{else}}
-                        <button class="btn btn-primary" id="login-btn">Login username/password</button>
-                        <button class="btn btn-primary" id="login-btn-email">Login passwordless email</button>
-                        <button class="btn btn-primary" id="login-btn-sms">Login passwordless sms</button>
-                    {{/if}}
-                </div>
-            </div>
-        </nav>
+        
+        {{> nav}}
 
         <section class="container">
             
@@ -127,62 +111,7 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="{{config.sdkJsPath}}" charset="utf-8"></script>
-        <script>
-        // This stuff will ofc end up in the JS SDK
-        $( document ).ready(function() {
-            // TODO remove this Workaround
-            SPiD.Talk = {
-                response: function (id, data) {
-                    window[id](data);
-                }
-            }
-            var spid = new SPiD.default({
-                serverUrl: '{{config.spidBaseUrl}}',
-                popup: true,
-                useSessionCluster: false,
-                client_id: '{{config.clientId}}',
-                redirect_uri: window.location.toString()
-            });
-
-            spid.event.addListener('SPiD.logout', function (data) {
-                alert('Logged out from SPiD. Need to cancel out session');
-            });
-
-            // Check session
-            spid.hasSession();
-
-            $('#login-btn').click(function (e) {
-                e.preventDefault();
-                spid.login(window.location.href + 'safepage');
-            });
-
-            $('#login-btn-email').click(function (e) {
-                e.preventDefault();
-                spid.login(window.location.href + 'safepage', 'otp-email');
-            });
-
-            $('#login-btn-sms').click(function (e) {
-                e.preventDefault();
-                spid.login(window.location.href + 'safepage', 'otp-sms');
-            });
-
-            $('#login-async-btn').click(function (e) {
-                e.preventDefault();
-                setTimeout(function () {
-                    spid.login(window.location.href + 'safepage');
-                }, 100);
-            });
-
-            $('#logout-btn').click(function (e) {
-                // TEMPORARY HACK UNTIL LOGOUT WORKS IN THE browser-sdk API
-                var oReq = new XMLHttpRequest();
-                oReq.addEventListener("load", function(e) {
-                    window.location.reload(true);
-                });
-                oReq.open("DELETE", '/session');
-                oReq.send();
-            });
-        });
+        <script src="/public/index.js"></script>
         </script>
     </body>
 </html>
