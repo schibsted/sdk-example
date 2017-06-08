@@ -1,188 +1,42 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset='utf-8'>
-        <title>{{pkgJson.name}}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/png" href="/public/favicon.png">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    </head>
+<html lang="en">
+    {{> head}}
+
     <body>
-
-        <nav class="navbar navbar-light bg-faded">
-            <div class="d-flex justify-content-between">
-                <a class="navbar-brand p-1" href="https://github.com/schibsted/sdk-example">
-                    <img src="/public/logo-common-components.svg" width="30" height="30" class="d-inline-block align-top mr-1" alt="">
-                    <span class="hidden-sm-down">{{pkgJson.name}} v{{pkgJson.version}}</span>
-                </a>
-                <div>
-                    {{#if loggedIn}}
-                        <button class="btn btn-secondary" id="logout-btn">Log out</button>
-                    {{else}}
-                        <button class="btn btn-primary" id="login-btn">Login username/password</button>
-                        <button class="btn btn-primary" id="login-btn-email">Login passwordless email</button>
-                        <button class="btn btn-primary" id="login-btn-sms">Login passwordless sms</button>
-                    {{/if}}
-                </div>
-            </div>
-        </nav>
-
-        <section class="container">
+        
+        {{> nav}}
+        
+        <section class="container-fluid">
             
             {{#if loggedIn}}
             <div class="alert alert-success mt-4" role="alert">
-                <strong>Well done!</strong> You've logged in to <strong>{{config.clientId}}</strong>.
+                <strong>Well done!</strong> You've logged in to clientId <strong>{{config.clientId}}</strong>.
             </div>
             {{/if}}
             
             <div class="row">
-                <div class="col my-3">
-                    <div class="card">
-                    <img class="card-img-top img-fluid" src="//placehold.it/1280x600/?text=&nbsp;">
-                    <div class="card-block">
-                        <h4 class="card-title">Donec laoreet sagittis nibh</h4>
-                        <p class="card-text">Maecenas dignissim justo sit amet ultricies ultricies. Duis sed ullamcorper eros. Donec nibh lacus, finibus nec urna at, lacinia rutrum.</p>
-                    </div>
-                    </div>
-                </div>
+                <div class="col my-3">{{> card}}</div>
             </div>
             
             <div class="row">
-                <div class="col-sm-6 col-md-4 col-lg-3 my-3">
-                    <div class="card">
-                    <img class="card-img-top img-fluid" src="//placehold.it/500x250?text=&nbsp;">
-                    <div class="card-block">
-                        <h4 class="card-title">Quisque eu erat nisl tellus</h4>
-                        <p class="card-text">Nunc nibh magna, bibendum vel pellentesque at, mollis vel nisl.</p>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3 my-3">
-                    <div class="card">
-                    <img class="card-img-top img-fluid" src="//placehold.it/500x250?text=&nbsp;">
-                    <div class="card-block">
-                        <h4 class="card-title">Pellentesque habitant morbi</h4>
-                        <p class="card-text">Vivamus efficitur elementum posuere. Ut viverra nunc nec mi.</p>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3 my-3">
-                    <div class="card">
-                    <img class="card-img-top img-fluid" src="//placehold.it/500x250?text=&nbsp;">
-                    <div class="card-block">
-                        <h4 class="card-title">Pellentesque habitant morbi</h4>
-                        <p class="card-text">Suspendisse tincidunt ante ac dui malesuada tempus. In mollis neque.</p>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3 my-3">
-                    <div class="card">
-                    <img class="card-img-top img-fluid" src="//placehold.it/500x250?text=&nbsp;">
-                    <div class="card-block">
-                        <h4 class="card-title">Suspendisse eu libero</h4>
-                        <p class="card-text">Nam vitae nisl ante. Sed eget nibh ullamcorper, euismod leo.</p>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3 my-3">
-                    <div class="card">
-                    <img class="card-img-top img-fluid" src="//placehold.it/500x250?text=&nbsp;">
-                    <div class="card-block">
-                        <h4 class="card-title">Lorem ipsum dolor</h4>
-                        <p class="card-text">Nullam ac finibus purus. Curabitur magna dui, cursus at scelerisque.</p>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3 my-3">
-                    <div class="card">
-                    <img class="card-img-top img-fluid" src="//placehold.it/500x250?text=&nbsp;">
-                    <div class="card-block">
-                        <h4 class="card-title">Praesent vestibulum tellus</h4>
-                        <p class="card-text">Praesent nec ligula in nibh pharetra auctor. Nullam imperdiet ex.</p>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3 my-3">
-                    <div class="card">
-                    <img class="card-img-top img-fluid" src="//placehold.it/500x250?text=&nbsp;">
-                    <div class="card-block">
-                        <h4 class="card-title">Lorem ipsum dolor</h4>
-                        <p class="card-text">Nullam ac finibus purus. Curabitur magna dui, cursus at scelerisque.</p>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3 my-3">
-                    <div class="card">
-                    <img class="card-img-top img-fluid" src="//placehold.it/500x250?text=&nbsp;">
-                    <div class="card-block">
-                        <h4 class="card-title">Praesent vestibulum tellus</h4>
-                        <p class="card-text">Praesent nec ligula in nibh pharetra auctor. Nullam imperdiet ex.</p>
-                    </div>
-                    </div>
-                </div>
+                <div class="col col-md-4 my-3">{{> card index='11'}}</div>
+                <div class="col col-md-4 my-3">{{> card index='23'}}</div>
+                <div class="col col-md-4 my-3">{{> card index='13'}}</div>
+                <div class="col col-md-4 my-3">{{> card index='45'}}</div>
+                <div class="col col-md-4 my-3">{{> card index='15'}}</div>
+                <div class="col col-md-4 my-3">{{> card index='84'}}</div>
+                <div class="col col-md-4 my-3">{{> card index='79'}}</div>
+                <div class="col col-md-4 my-3">{{> card index='8'}}</div>
+                <div class="col col-md-4 my-3">{{> card index='99'}}</div>
+                <div class="col col-md-4 my-3">{{> card index='10'}}</div>
             </div>
             
         </section>
 
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        
         <script src="{{config.sdkJsPath}}" charset="utf-8"></script>
-        <script>
-        // This stuff will ofc end up in the JS SDK
-        $( document ).ready(function() {
-            // TODO remove this Workaround
-            SPiD.Talk = {
-                response: function (id, data) {
-                    window[id](data);
-                }
-            }
-            var spid = new SPiD.default({
-                serverUrl: '{{config.spidBaseUrl}}',
-                popup: true,
-                useSessionCluster: false,
-                client_id: '{{config.clientId}}',
-                redirect_uri: window.location.toString()
-            });
-
-            spid.event.addListener('SPiD.logout', function (data) {
-                alert('Logged out from SPiD. Need to cancel out session');
-            });
-
-            // Check session
-            spid.hasSession();
-
-            $('#login-btn').click(function (e) {
-                e.preventDefault();
-                spid.login(window.location.href + 'safepage');
-            });
-
-            $('#login-btn-email').click(function (e) {
-                e.preventDefault();
-                spid.login(window.location.href + 'safepage', 'otp-email');
-            });
-
-            $('#login-btn-sms').click(function (e) {
-                e.preventDefault();
-                spid.login(window.location.href + 'safepage', 'otp-sms');
-            });
-
-            $('#login-async-btn').click(function (e) {
-                e.preventDefault();
-                setTimeout(function () {
-                    spid.login(window.location.href + 'safepage');
-                }, 100);
-            });
-
-            $('#logout-btn').click(function (e) {
-                // TEMPORARY HACK UNTIL LOGOUT WORKS IN THE browser-sdk API
-                var oReq = new XMLHttpRequest();
-                oReq.addEventListener("load", function(e) {
-                    window.location.reload(true);
-                });
-                oReq.open("DELETE", '/session');
-                oReq.send();
-            });
-        });
+        <script src="/public/index.js"></script>
         </script>
     </body>
 </html>

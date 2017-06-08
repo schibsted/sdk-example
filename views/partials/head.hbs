@@ -1,0 +1,17 @@
+<head>
+    <meta charset='utf-8'>
+    <title>{{pkgJson.name}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/public/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.css" integrity="sha256-fDZ6wHbmob72H9d6oq3P6/F3Hc+wHBjdi6FTsUvvQjs=" crossorigin="anonymous" />
+    <script>
+    // These configs will be filled by handlebars on the server side and js can access them
+    window.config = {
+        spidBaseUrl: '{{config.spidBaseUrl}}',
+        clientId: '{{config.clientId}}'
+    };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.js" integrity="sha256-jVfFb7AbGi7S/SLNl8SB4/MYaf549eEs+NlIWMoARHg=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.js" integrity="sha256-O80B9+k8kADyLffStFEQZnTxAU91ZryGbUeKwxO0t3M=" crossorigin="anonymous"></script>
+</head>
