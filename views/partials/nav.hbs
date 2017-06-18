@@ -12,6 +12,14 @@
                 {{#if loggedIn}}
                     <button class="dropdown-item" id="logout-btn">Log out</button>
                 {{else}}
+                    <form class="dropdown-item form-inline dropdown-item">
+                        <div class="form-inline form-check">
+                            <label class="form-check-label dropdown-item">
+                                <input class="form-check-input" type="checkbox" id="usePopup"> Popup
+                            </label>
+                        </div>
+                    </form>
+                    <div class="dropdown-divider"></div>
                     <button class="dropdown-item" id="login-user-pass">With User&amp;Pass</button>
                     <button class="dropdown-item" id="login-email">With Email</button>
                     <button class="dropdown-item" id="login-sms">With SMS</button>

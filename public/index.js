@@ -10,13 +10,15 @@ $(document).ready(function() {
         response: (id, data) => window[id](data)
     };
 
-    const spid = new SPiD.default({
+    const spidOptions = {
         serverUrl: window.config.spidBaseUrl,
         popup: true,
         useSessionCluster: false,
         client_id: window.config.clientId,
         redirect_uri: window.location.toString()
-    });
+    };
+
+    const spid = new SPiD.default(spidOptions);
 
     const safePage = `${window.location.origin}/safepage`;
 
@@ -29,16 +31,19 @@ $(document).ready(function() {
 
     $('#login-user-pass').click(function (e) {
         e.preventDefault();
+        spidOptions.popup = $('#usePopup').is(':checked');
         spid.login(safePage);
     });
 
     $('#login-email').click(function (e) {
         e.preventDefault();
+        spidOptions.popup = $('#usePopup').is(':checked');
         spid.login(safePage, 'otp-email');
     });
 
     $('#login-sms').click(function (e) {
         e.preventDefault();
+        spidOptions.popup = $('#usePopup').is(':checked');
         spid.login(safePage, 'otp-sms');
     });
 

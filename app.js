@@ -20,15 +20,16 @@ const redirectUri = (uriPath) => {
 };
 
 app.set('views', './views');
-// register path to partials. Please note that the partials are cached into memory so the server
-// needs to re-run to consider the latest changes but this limitation doesn't exist for normal
-// view files.
-// @see https://www.npmjs.com/package/hbs#helpers-and-partials
-hbs.registerPartials('./views/partials');
 // @see https://github.com/pillarjs/hbs
 app.set('view engine', 'hbs');
 
 app.use(helmet());
+
+app.use((req, res, next) => {
+    // register path to partials. this is not particularly performant but is ok for this everchanging demo. 
+    // @see https://www.npmjs.com/package/hbs#helpers-and-partials
+    hbs.registerPartials('./views/partials', () => next());
+});
 
 app.use(session({
     name: `${pkgJson.name}_session_id`,
