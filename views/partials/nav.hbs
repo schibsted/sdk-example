@@ -1,6 +1,6 @@
 <nav class="navbar navbar-light bg-faded">
     <div class="d-flex justify-content-between">
-        <a class="navbar-brand p-1" href="https://github.com/schibsted/sdk-example">
+        <a class="navbar-brand p-1" href="/">
             <img src="/public/logo-common-components.svg" width="30" height="30" class="d-inline-block align-top mr-1" alt="Logo">
             <span class="hidden-sm-down">SDK Example</span>
         </a>
@@ -12,8 +12,15 @@
                 {{#if loggedIn}}
                     <button class="dropdown-item" id="logout-btn">Log out</button>
                 {{else}}
-                    <button class="dropdown-item" id="login-user-pass">Username &amp; Password</button>
-                    <h6 class="dropdown-header">Passwordless</h6>
+                    <form class="dropdown-item form-inline dropdown-item">
+                        <div class="form-inline form-check">
+                            <label class="form-check-label dropdown-item">
+                                <input class="form-check-input" type="checkbox" id="usePopup"> Popup
+                            </label>
+                        </div>
+                    </form>
+                    <div class="dropdown-divider"></div>
+                    <button class="dropdown-item" id="login-user-pass">With User&amp;Pass</button>
                     <button class="dropdown-item" id="login-email">With Email</button>
                     <button class="dropdown-item" id="login-sms">With SMS</button>
                     <div class="dropdown-divider"></div>
