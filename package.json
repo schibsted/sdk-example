@@ -1,6 +1,6 @@
 {
 	"name": "schibsted-sdk-example",
-    "description": "An example website that uses Schibsted's new browser SDK",
+	"description": "An example website that uses Schibsted's new browser SDK",
 	"version": "2.1.0",
 	"license": "MIT",
 	"main": "server.js",
@@ -14,7 +14,6 @@
 		"getenv": "^0.7.0",
 		"hbs": "^4.0.1",
 		"helmet": "^3.6.1",
-		"node-fetch": "^1.7.0",
 		"schibsted-core-sdk-node": "*",
 		"schibsted-identity-sdk": "*"
 	},

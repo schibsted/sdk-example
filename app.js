@@ -5,12 +5,11 @@ const session = require('express-session');
 const helmet = require('helmet');
 const { ServerApi } = require('schibsted-core-sdk-node');
 const schIdentity = require('schibsted-identity-sdk');
-const fetch = require('node-fetch');
 const config = require('./config');
 const pkgJson = require('./package');
 const hbs = require('hbs');
 
-const spidSrvApi = new ServerApi(fetch, config.spidBaseUrl, config.clientId, config.clientSecret);
+const spidSrvApi = new ServerApi(config.spidBaseUrl, config.clientId, config.clientSecret);
 
 const app = express();
 
@@ -61,14 +60,14 @@ app.get('/safepage', function (req, res) {
     schIdentity.token.getFromAuthCode(spidSrvApi, code, redirectUri('/safepage'))
         .then(
             (response) => {
-                console.log('-------------and here is our response:', response);
+                console.log('Got a token from oauth code', response);
                 schIdentity.token.introspect(spidSrvApi, response.access_token).then(console.log, console.error);
                 req.session.token = response.access_token;
                 // tokenIntrospection(response.access_token).then(console.log, console.error);
                 res.render('safepage', { closeTimeout: 2000 });
             },
             err => {
-                console.log('--------------------------------------01', err);
+                console.log('Error while trying to get a token from auth code', err);
                 res.render('error', { status: 500, err });
             }
         );
