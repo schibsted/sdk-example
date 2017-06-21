@@ -12,22 +12,32 @@ $(document).ready(function() {
 
     const spidOptions = {
         serverUrl: window.config.spidBaseUrl,
+        paymentServerUrl: window.config.paymentServerUrl,
         popup: true,
         useSessionCluster: false,
         client_id: window.config.clientId,
-        redirect_uri: window.location.toString()
+        redirect_uri: window.location.origin
     };
 
     const spid = new SPiD.default(spidOptions);
 
     const safePage = `${window.location.origin}/safepage`;
 
-    spid.event.addListener('SPiD.logout', function () {
+    spid.event.addListener('login', function () {
+        alert('User already logged in.');
+        // window.location.reload();
+    });
+
+    spid.event.addListener('logout', function () {
         alert('Logged out from SPiD. Need to cancel out session');
+        window.location.reload();
     });
 
     // Check session
-    spid.hasSession();
+    spid.hasSession().then(
+        (response) => console.log('HasSession success:', response),
+        (err) => console.error('HasSession failure:', err)
+    );
 
     $('#login-user-pass').click(function (e) {
         e.preventDefault();
@@ -38,13 +48,13 @@ $(document).ready(function() {
     $('#login-email').click(function (e) {
         e.preventDefault();
         spidOptions.popup = $('#usePopup').is(':checked');
-        spid.login(safePage, 'otp-email');
+        spid.login('otp-email', safePage);
     });
 
     $('#login-sms').click(function (e) {
         e.preventDefault();
         spidOptions.popup = $('#usePopup').is(':checked');
-        spid.login(safePage, 'otp-sms');
+        spid.login('otp-sms', safePage);
     });
 
     $('#logout-btn').click(function () {

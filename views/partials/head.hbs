@@ -8,7 +8,8 @@
     // These configs will be filled by handlebars on the server side and js can access them
     window.config = {
         spidBaseUrl: '{{config.spidBaseUrl}}',
-        clientId: '{{config.clientId}}'
+        clientId: '{{config.clientId}}',
+        paymentServerUrl: '{{config.paymentServerUrl}}'
     };
     if (console && console.log) {
         console.log(JSON.stringify(window.config, undefined, 2));
