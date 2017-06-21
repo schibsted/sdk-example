@@ -8,13 +8,12 @@ config.env = getenv('NODE_ENV', 'development');
 config.debug = getenv('NODE_DEBUG', '');
 config.port = getenv.int('PORT', 9000);
 config.clientId = getenv('CLIENT_ID', '');
-// clientSecret and clientSignSecret need to be generated in self service
+// clientSecret needs to be generated in self service
 config.clientSecret = getenv('CLIENT_SECRET', '');
 // TODO probably remove the trailing slash
 config.spidBaseUrl = getenv('SPID_URL', 'http://spp.dev/');
 config.protocol = getenv('PROTOCOL', 'http');
 config.hostname = getenv('HOSTNAME', 'localhost');
-config.bffUrl = getenv('BFF_URL', 'http://localhost:8000');
 config.cookieName = getenv('COOKIE_NAME', 'identity-code');
 config.cookieSecret = getenv('COOKIE_SECRET', 'cookie-signing-secret-123456');
 // TODO this needs to be loaded from CDN
