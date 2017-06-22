@@ -4,15 +4,27 @@ node_js:
 - '8'
 install: npm install
 deploy:
-  provider: elasticbeanstalk
-  access_key_id: $AWS_ACCESS_KEY_ID
-  secret_access_key: $AWS_SECRET_ACCESS_KEY
-  region: $AWS_REGION
-  app: "identity-web-example"
-  env: "identity-web-example"
-  bucket_name: $BUCKET_NAME
-  bucket_path: "identity-web-example"
-  skip_cleanup: true
-  on:
-    repo: schibsted/sdk-example
-    branch: master
+  - provider: elasticbeanstalk
+    access_key_id: $AWS_ACCESS_KEY_ID
+    secret_access_key: $AWS_SECRET_ACCESS_KEY
+    region: $AWS_REGION
+    app: "identity-web-example"
+    env: "dev-identity-web-example"
+    bucket_name: $BUCKET_NAME
+    bucket_path: "dev-identity-web-example"
+    skip_cleanup: true
+    on:
+      repo: schibsted/sdk-example
+      branch: master
+  - provider: elasticbeanstalk
+    access_key_id: $AWS_ACCESS_KEY_ID
+    secret_access_key: $AWS_SECRET_ACCESS_KEY
+    region: $AWS_REGION
+    app: "identity-web-example"
+    env: "identity-web-example"
+    bucket_name: $BUCKET_NAME
+    bucket_path: "identity-web-example"
+    skip_cleanup: true
+    on:
+      repo: schibsted/sdk-example
+      tags: true
