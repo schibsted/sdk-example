@@ -3,96 +3,118 @@
 const express = require('express');
 const session = require('express-session');
 const helmet = require('helmet');
-const { ServerApi } = require('schibsted-core-sdk-node');
-const schIdentity = require('schibsted-identity-sdk');
+const cookieParser = require('cookie-parser');
+
 const config = require('./config');
 const pkgJson = require('./package');
-const hbs = require('hbs');
-
-const spidSrvApi = new ServerApi(config.spidBaseUrl, config.clientId, config.clientSecret);
+const asyncMW = require('./asyncMW');
+const filterExt = require('./filterExt');
+const oauth = require('./oauth');
 
 const app = express();
 
-const redirectUri = (uriPath) => {
-    const port = (config.env === 'production') ? '' : `:${config.port}`;
-    return `${config.protocol}://${config.hostname}${port}${uriPath}`;
-};
-
-app.set('views', './views');
+app.set('views', `${__dirname}/browser`);
 // @see https://github.com/pillarjs/hbs
 app.set('view engine', 'hbs');
 
 app.use(helmet());
 
-app.use((req, res, next) => {
-    // register path to partials. this is not particularly performant but is ok for this everchanging demo. 
-    // @see https://www.npmjs.com/package/hbs#helpers-and-partials
-    hbs.registerPartials('./views/partials', () => next());
-});
+app.get('/healthcheck', (req, res) => res.status(200).end());
+
+app.use(cookieParser());
 
 app.use(session({
-    name: `${pkgJson.name}_session_id`,
+    name: config.cookieName,
+    rolling: true,
+    saveUninitialized: false,
     secret: config.cookieSecret,
-    resave: true,
-    saveUninitialized: false
+    unset: 'destroy',
+    resave: false,
+    cookie: {
+        httpOnly: true, // to disable JS access to cookie in the browser and reduce risk for session hijacking
+        sameSite: 'lax', // to prevent CSRF
+        maxAge: config.cookieMaxAge,
+    }
 }));
 
-app.use('/public', express.static('public'));
+oauth.initialize(app);
 
-app.get('/', function (req, res) {
-    res.render('index', { pkgJson, config, loggedIn: req.session.token });
-});
-
-app.get('/safepage', function (req, res) {
-    // TODO remove this
-    console.log('A request to safe page received!');
-    const code = req.query.code;
-    // TODO remove me: request.get('/oauth/ro', { code });
-    if (!code) {
-        throw new Error('The "code" parameter is not passed to the safe page');
+app.get('/', asyncMW(async (req, res) => {
+    const data = { pkgJson, config };
+    if (req.isAuthenticated()) {
+        if (!req.user.userinfo) {
+            // We came from a purchase flow, and our token doesn't have the 'openid' scope. Let's
+            // try to redirect to /oauth to "quickly fetch" a token
+            return res.redirect('/oauth');
+        }
+        data.userInfo = req.user.userinfo;
     }
-    console.log('Code:', code);
-    /*
-    Note about redirect_uri:
-    It should be exactly the same as the redirect_uri in the original auth request
-    TODO: don't hard code this
-    */
-    schIdentity.token.getFromAuthCode(spidSrvApi, code, redirectUri('/safepage'))
-        .then(
-            (response) => {
-                console.log('Got a token from oauth code', response);
-                schIdentity.token.introspect(spidSrvApi, response.access_token).then(console.log, console.error);
-                req.session.token = response.access_token;
-                // tokenIntrospection(response.access_token).then(console.log, console.error);
-                res.render('safepage', { closeTimeout: 2000 });
-            },
-            err => {
-                console.log('Error while trying to get a token from auth code', err);
-                res.render('error', { status: 500, err });
-            }
-        );
+    res.render('index', data);
+}));
+
+app.get('/userinfo', (req, res) => {
+    if (req.isAuthenticated() && req.user.userinfo) {
+        return res.json(req.user.userinfo);
+    }
+    res.status(401).send(`No token with 'openid' scope available`);
 });
 
-app.get('/tokenpage', function (req, res) {
-    console.log('tokenpage', req.body);
-    /* We use session middleware so no need to set the cookie like this
-    // @see https://expressjs.com/sk/api.html#res.cookie
-    res.cookie(config.cookieName, code, {
-        // httpOnly: true,
-        // secure: true,
-        // sameSite: true,
-        // signed: true,
-        maxAge: 100000,
-        // expires: 0 // session cookie
-    });
-    */
-    res.render('tokenpage', { data: req });
+app.get('/isloggedin', (req, res) => res.send({ isLoggedin: req.isAuthenticated() }));
+
+app.get('/safepage', oauth.passport.authenticate('oauth'), asyncMW(async (req, res, next) => {
+    const state = {};
+    if (req.query.state) {
+        const stateString = Buffer.from(req.query.state, 'base64').toString();
+        Object.assign(state, JSON.parse(stateString));
+    }
+    if (req.query.order_id) {
+        console.log('Congratulations! You purchased something');
+    }
+    if (state.popup) {
+        res.render('safepage');
+    } else {
+        res.redirect('/');
+    }
+}));
+
+app.get('/session-exchange-safepage', oauth.passport.authenticate('oauth'), asyncMW(async (req, res) => {
+    const state = {};
+    if (req.query.state) {
+        const stateString = Buffer.from(req.query.state, 'base64').toString();
+        Object.assign(state, JSON.parse(stateString));
+    } else {
+        console.log(`No state was returned. We expect that to be present if you came back from a`
+        + ` login attempt, and should be set when the frontend calls 'login(...)'`);
+    }
+    if (state.popup) {
+        res.render('safepage');
+    } else {
+        res.redirect('/');
+    }
+}));
+
+app.get('/introspect', asyncMW(async (req, res, next) => {
+    try {
+        if (!req.isAuthenticated()) {
+            throw new Error('Not authenticated');
+        }
+        res.send(await oauth.introspector(req.user.ticket.access_token, 'access_token'));
+    } catch (error) {
+        console.error(`Token introspection failed: ${error.message}`);
+        res.send(error.message);
+    }
+}));
+
+app.get('/logout', (req, res) => {
+    req.logout();
+    // Destroy the session and any possible data we might have for the user
+    // @see https://www.npmjs.com/package/express-session#sessiondestroycallback
+    req.session.destroy(() => res.redirect('/'));
 });
 
-app.delete('/session', (req, res) => {
-    res.clearCookie(`${pkgJson.name}_session_id`);
-    res.status(204).end();
-});
+app.use('/browser', filterExt('css', 'ico'), express.static(`${__dirname}/browser`));
+app.get('/favicon.ico', (req, res) => res.redirect('/browser/favicon.ico'));
+app.use('/dist', express.static('dist'));
 
 // For any route not found
 app.use((req, res, next) => {
@@ -103,10 +125,16 @@ app.use((req, res, next) => {
 
 // Error handler
 app.use((err, req, res, next) => {
-    console.error('Error: ', err);
-    res.render('error', {
-        status: err.status || 500,
-        error: err || 'no description'
+    console.error('Express error handler is called (a middleware thrown): ', err);
+    if (typeof err !== 'object' || err === null) {
+        err = { name: `NON-OBJECT ERROR: ${String(err)}` };
+    }
+    const status = err.status || 500;
+    res.status(status).render('error', {
+        status,
+        message: err.message || 'No error message',
+        name: err.name || 'No error name',
+        stack: err.stack || 'No stack trace is available'
     });
 });
 

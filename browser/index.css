@@ -1,0 +1,41 @@
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    background-color: rgba(236, 239, 242, 0.673);
+    color: rgb(57, 57, 57);
+    font-size: 16px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding: 1em;
+}
+
+html {
+    background-image: url('https://picsum.photos/300/?random&blur');
+    background-size: cover;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #8a8cff52;
+}
+
+button {
+    background-color: rgb(0, 58, 146);
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    border: none;
+    padding: 0.3em;
+    font-size: inherit;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+a, a:active, a:visited, a:hover {
+    color: rgb(75, 141, 226);
+}
+
+button:hover, button:active {
+    background-color: rgb(0, 35, 87);
+}

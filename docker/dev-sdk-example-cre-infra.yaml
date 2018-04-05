@@ -1,0 +1,45 @@
+# author         :Zakaria ANBARI <zakaria.anbari@schibsted.com>
+# description    :This YAML configuration file triggers  componnents to run
+#                 the sdk-example app for Spinnaker in dev cluster
+apiVersion: v1
+kind: Service
+metadata:
+  name: identitysdkexample-dev
+  labels:
+    app: identitysdkexample
+    stack: dev
+spec:
+  ports:
+    # the port that this service should serve on
+  - name: front
+    protocol: TCP
+    port: 443
+    targetPort: 9000
+  selector:
+    app: identitysdkexample
+    stack: dev
+    load-balancer-sdk-example-dev: "true"
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: sdk-example-dev
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+  labels:
+    app: identitysdkexample
+    stack: dev
+spec:
+  tls:
+  - hosts:
+    - dev.sdk-example.com
+    secretName: dev-sdk-example-tls
+  rules:
+  - host: dev.sdk-example.com
+    http:
+      paths:
+      - backend:
+          serviceName: identitysdkexample-dev
+          servicePort: 443

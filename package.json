@@ -1,26 +1,60 @@
 {
-	"name": "schibsted-sdk-example",
-	"description": "An example website that uses Schibsted's new browser SDK",
-	"version": "2.1.0",
-	"license": "MIT",
-	"main": "server.js",
-	"repository": {},
-	"scripts": {
-		"dev": "NODE_DEBUG=schibsted-core-sdk-node nodemon"
-	},
-	"dependencies": {
-		"express": "^4.15.3",
-		"express-session": "^1.15.3",
-		"getenv": "^0.7.0",
-		"hbs": "^4.0.1",
-		"helmet": "^3.6.1",
-		"schibsted-core-sdk-node": "*",
-		"schibsted-identity-sdk": "*"
-	},
-	"devDependencies": {
-		"eslint": "^3.19.0",
-		"eslint-config-schibsted": "^3.1.0",
-		"nodemon": "^1.11.0"
-	},
-	"private": true
+    "name": "sdk-example",
+    "description": "An example website that uses Schibsted's new browser SDK",
+    "version": "4.2.0",
+    "license": "MIT",
+    "main": "server.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.schibsted.io/spt-identity/sdk-example.com"
+    },
+    "scripts": {
+        "build": "./build.sh",
+        "dev": "nodemon -i dist",
+        "lint": "eslint ."
+    },
+    "dependencies": {
+        "@schibsted/account-sdk-browser": "^3.0.0-beta.7",
+        "cookie-parser": "^1.4.3",
+        "dotenv": "^5.0.0",
+        "express": "^4.15.3",
+        "express-session": "^1.15.3",
+        "getenv": "^0.7.0",
+        "hbs": "^4.0.1",
+        "helmet": "^3.6.1",
+        "node-fetch": "^2.1.1",
+        "passport": "^0.4.0",
+        "passport-oauth2": "^1.4.0",
+        "passport-oauth2-middleware": "^1.0.3",
+        "request": "^2.83.0",
+        "request-promise": "^4.2.2",
+        "token-introspection": "^0.7.0"
+    },
+    "devDependencies": {
+        "babel-loader": "^7.1.4",
+        "babel-plugin-transform-builtin-extend": "^1.1.2",
+        "babel-preset-env": "^1.6.1",
+        "eslint": "^4.12.0",
+        "eslint-plugin-import": "^2.8.0",
+        "nodemon": "^1.11.0",
+        "regenerator-runtime": "^0.11.1",
+        "webpack": "^4.1.1",
+        "webpack-cli": "^2.0.12"
+    },
+    "babel": {
+        "presets": [
+            [
+                "env",
+                {
+                    "targets": {
+                        "browsers": [
+                            "last 2 major versions",
+                            "ie 9"
+                        ]
+                    }
+                }
+            ]
+        ]
+    },
+    "private": true
 }

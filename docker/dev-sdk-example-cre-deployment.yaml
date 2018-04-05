@@ -1,0 +1,43 @@
+# author         :Zakaria ANBARI <zakaria.anbari@schibsted.com>
+# description    :This YAML configuration file triggers deployment component to run
+#                 the dev-sdk-example app
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: identitysdkexample-dev
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: identitysdkexample
+        stack: dev
+        load-balancer-sdk-example-dev: "true"
+    spec:
+      containers:
+      - name: sdk-example-dev
+        image: containers.schibsted.io/spt-identity/sdk-example:latest
+        env:
+        - name: GET_HOSTS_FROM
+          value: dns
+          # client-id and client-secret are for now storesd in k8s secrets in identity namespace
+          # plan is to use Strongbox afterwards
+        - name: CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: dev-sdk-example-client-creds
+              key: client-id
+        - name: CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: dev-sdk-example-client-creds
+              key: client-secret
+        - name: SITE_ORIGIN
+          value: https://dev.sdk-example.com
+        - name: NODE_ENV
+          value: development
+        - name: PORT
+          value: '9000'
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9000

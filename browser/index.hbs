@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset='utf-8'>
+        <title>{{pkgJson.name}} v{{pkgJson.version}}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script>
+            // These configs will be filled by handlebars on the server side and js can access them
+            window.config = {
+                spidEnv: '{{config.spidEnv}}',
+                clientId: '{{config.clientId}}',
+                exampleProductId: '{{config.exampleProductId}}'
+            };
+            if (console && console.log) {
+                console.log(JSON.stringify(window.config, undefined, 2));
+            }
+        </script>
+        <link rel="stylesheet" href="/browser/index.css" />
+        <link rel="icon" href="/browser/favicon.ico" type="image/x-icon" />
+        <script src="https://cdn.polyfill.io/v2/polyfill.js?features=Object.entries"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+
+    {{#if userInfo}}
+        <h1>
+            <img src="{{userInfo.picture}}" style="height: 1em" />
+            Welcome, {{userInfo.preferred_username}}
+        </h1>
+    {{else}}
+        <h1>Not logged in</h1>
+    {{/if}}
+        <hr/>
+        <label><input type="checkbox" id="use-popup"> Popup</label>
+        <label><input type="checkbox" id="use-new-flow"> New Flow</label>
+        <br/>
+        using
+        <label><input type="radio" value="" name="login-method" checked>Credentials</label>
+        <label><input type="radio" value="otp-email" name="login-method">Email</label>
+        <label><input type="radio" value="otp-sms" name="login-method">SMS</label>
+        <br/>
+        <hr/>
+        <p>
+            Logged in to Schibsted SSO:
+            <span class="is-logged-in-to-sso" style="cursor: help">checking...</span>
+            <button class="update-is-logged-in-to-sso">Update</button>
+            <button class="login" title="Login to Schibsted SSO">Login</button>
+            <button class="logout-sso" title="Logout from Schibsted SSO">Logout</button>
+            <input type="email" id="preferred-email" placeholder="preferred@user.email"/>
+        </p>
+        <p>
+            User is connected to merchant:
+            <span class="user-is-connected-to-merchant">checking...</span>
+            <button class="update-is-connected">Update</button>
+        </p>
+        <p>
+            Logged in to merchant:
+            <span class="is-logged-in-to-merchant" style="cursor: help">checking...</span>
+            <button class="query-merchant-log-in" title="Ask the backend if we're still logged in">Update</button>
+            <button class="login" title="Login to Schibsted SSO">Login</button>
+            <button class="logout-merchant" title="Logout from merchant">Logout</button>
+        </p>
+        <h2>User</h2>
+        <button class="get-user-info-sso">From SSO</button>
+        <div>
+            <pre><code class="user-info-sso"></code></pre>
+        </div>
+        <button class="get-user-info-token">Using Token</button>
+        <div>
+            <pre><code class="user-info-token"></code></pre>
+        </div>
+        <button class="introspect-token">Introspect Token</button>
+        <div>
+            <pre><code class="token-introspection-result"></code></pre>
+        </div>
+        <script src="/dist/index.js"></script>
+        <h2>Payment</h2>
+        <button class="buy-product-old-flow">Buy product</button>
+    </body>
+</html>
