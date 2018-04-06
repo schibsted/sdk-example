@@ -9,3 +9,9 @@ install: npm install
 script:
   - npm run lint
   - npm run build
+deploy:
+  - provider: script
+    script: ./scripts/internal_travis_trigger.sh
+    skip_cleanup: true
+    on:
+      branch: big-update
