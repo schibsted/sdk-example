@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 OPTS="--mode=production --module-bind js=babel-loader --devtool source-map"
 
