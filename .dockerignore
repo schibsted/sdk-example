@@ -1,1 +1,10 @@
-node_modules
+.dockerignore
+.editorconfig
+.env-template
+.eslintrc.yml
+.git
+.gitignore
+.travis.yml
+.vscode
+docker
+README.md

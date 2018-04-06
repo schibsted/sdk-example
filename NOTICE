@@ -1,0 +1,71 @@
+#########################################################
+#                                                       #
+# Schibsted SDK Example                                 #
+# Copyright (c) 2018 Schibsted Products & Technology AS #
+#                                                       #
+#########################################################
+
+This SDK directly depends on the following projects (Note that transitive dependencies and their
+licenses are ignored):
+
+# SCHIBSTED SDK EXAMPLE
+
+@schibsted/account-sdk-browser
+  LICENSE: MIT,
+           https://github.com/schibsted/account-sdk-browser/blob/master/README.md#license
+
+cookie-parser
+  LICENSE: MIT,
+           https://github.com/expressjs/cookie-parser/blob/master/README.md#mit-licensed
+
+dotenv
+  LICENSE: BSD-2-Clause,
+           https://github.com/motdotla/dotenv/blob/master/LICENSE
+
+express
+  LICENSE: MIT,
+           https://github.com/expressjs/express/blob/master/LICENSE
+
+express-session
+  LICENSE: MIT,
+           https://github.com/expressjs/session/blob/master/LICENSE
+
+getenv
+  LICENSE: MIT,
+           https://github.com/ctavan/node-getenv/blob/master/README.md#license
+
+hbs
+  LICENSE: MIT,
+           https://github.com/pillarjs/hbs/blob/master/LICENSE
+
+helmet
+  LICENSE: MIT,
+           https://github.com/helmetjs/helmet/blob/master/LICENSE
+
+node-fetch
+  LICENSE: MIT,
+           https://github.com/bitinn/node-fetch/blob/master/LICENSE.md
+
+passport
+  LICENSE: MIT,
+           https://github.com/jaredhanson/passport/blob/master/LICENSE
+
+passport-oauth2
+  LICENSE: MIT,
+           https://github.com/jaredhanson/passport-oauth2/blob/master/LICENSE
+
+passport-oauth2-middleware
+  LICENSE: ISC,
+           https://github.com/artema/passport-oauth2-middleware/blob/bd0f34b50e255ba4290aefd4003f995ac5eda318/package.json#L21
+
+request
+  LICENSE: Apache-2.0,
+           https://github.com/request/request/blob/master/LICENSE
+
+request-promise
+  LICENSE: ISC,
+           https://github.com/request/request-promise/blob/master/LICENSE
+
+token-introspection
+  LICENSE: MIT,
+           https://github.com/schibsted/node-token-introspection/blob/2d7e49ce1e926065d1e0b208cd33e87f86f0e7a3/package.json#L22
