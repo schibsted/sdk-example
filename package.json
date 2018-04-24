@@ -14,7 +14,7 @@
         "lint": "eslint ."
     },
     "dependencies": {
-        "@schibsted/account-sdk-browser": "^3.0.0-beta.7",
+        "@schibsted/account-sdk-browser": "^3.0.0-rc.2",
         "cookie-parser": "^1.4.3",
         "dotenv": "^5.0.0",
         "express": "^4.15.3",

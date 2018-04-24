@@ -1,18 +1,14 @@
 'use strict';
 
 /* global $ */
-/* eslint-env browser */
-
-require('regenerator-runtime/runtime');
-
+import 'regenerator-runtime/runtime';
 /*
 This code is in basic JavaScript. Some JQuery is used to make the code more readable
 but the SDK has no dependency on JQuery.
 The browser however, should support fetch and promises so you might want to polyfill them.
 */
 
-const Identity = require('@schibsted/account-sdk-browser/identity');
-const Payment = require('@schibsted/account-sdk-browser/payment');
+import { Identity, Payment } from '@schibsted/account-sdk-browser';
 window.Identity = Identity; // To be able to play around with it in the console...
 window.Payment = Payment;
 
