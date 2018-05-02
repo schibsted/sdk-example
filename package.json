@@ -14,7 +14,7 @@
         "lint": "eslint ."
     },
     "dependencies": {
-        "@schibsted/account-sdk-browser": "^3.0.0-beta.7",
+        "@schibsted/account-sdk-browser": "^3.0.0-rc.2",
         "cookie-parser": "^1.4.3",
         "dotenv": "^5.0.0",
         "express": "^4.15.3",
@@ -22,6 +22,7 @@
         "getenv": "^0.7.0",
         "hbs": "^4.0.1",
         "helmet": "^3.6.1",
+        "jsonwebtoken": "^8.2.1",
         "node-fetch": "^2.1.1",
         "passport": "^0.4.0",
         "passport-oauth2": "^1.4.0",
@@ -32,14 +33,13 @@
     },
     "devDependencies": {
         "babel-loader": "^7.1.4",
-        "babel-plugin-transform-builtin-extend": "^1.1.2",
         "babel-preset-env": "^1.6.1",
         "eslint": "^4.12.0",
-        "eslint-plugin-import": "^2.8.0",
+        "eslint-plugin-import": "^2.11.0",
         "nodemon": "^1.11.0",
         "regenerator-runtime": "^0.11.1",
-        "webpack": "^4.1.1",
-        "webpack-cli": "^2.0.12"
+        "webpack": "^4.6.0",
+        "webpack-cli": "^2.1.2"
     },
     "babel": {
         "presets": [
