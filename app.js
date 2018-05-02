@@ -30,11 +30,7 @@ app.use(session({
     secret: config.cookieSecret,
     unset: 'destroy',
     resave: false,
-    cookie: {
-        httpOnly: true, // to disable JS access to cookie in the browser and reduce risk for session hijacking
-        sameSite: 'lax', // to prevent CSRF
-        maxAge: config.cookieMaxAge,
-    }
+    cookie: { httpOnly: true, sameSite: 'lax' }
 }));
 
 oauth.initialize(app);
