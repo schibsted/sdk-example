@@ -25,7 +25,9 @@
 
     {{#if userInfo}}
         <h1>
-            <img src="{{userInfo.picture}}" style="height: 1em" />
+            <div id="userInfo">
+                <img src="{{userInfo.picture}}" style="height: 1em" />
+            </div>
             Welcome, {{userInfo.preferred_username}}
         </h1>
     {{else}}

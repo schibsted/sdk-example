@@ -38,10 +38,26 @@ document.addEventListener("DOMContentLoaded", function() {
      * Checks if the user is logged in to SSO and updates the page accordingly
      * @return {void}
      */
-    function isLoggedInToSSO() {
-        identity.isLoggedIn()
-            .then(loggedIn => $$('is-logged-in-to-sso').textContent = (loggedIn ? 'Yes' : 'No'))
-            .catch(err => $$('is-logged-in-to-sso').textContent = `Error: ${err}`);
+    async function isLoggedInToSSO() {
+        try {
+            const loggedIn = await identity.isLoggedIn();
+            $$('is-logged-in-to-sso').textContent = (loggedIn ? 'Yes' : 'No');
+            if (loggedIn) {
+                const userInfo = document.getElementById('userInfo');
+                const imgs = document.querySelector('#userInfo > img');
+                const img = imgs && imgs.length && imgs[0];
+                if (img) {
+                    const a = document.createElement('a');
+                    a.href = identity.accountUrl();
+                    a.textContent = "Account page";
+                    userInfo.removeChild(img);
+                    a.appendChild(img);
+                    userInfo.appendChild(a);
+                }
+            }
+        } catch (err) {
+            $$('is-logged-in-to-sso').textContent = `Error: ${err}`;
+        }
     }
 
     /**
