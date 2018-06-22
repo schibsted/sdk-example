@@ -30,4 +30,9 @@ config.cookieMaxAge = getenv.int('COOKIE_MAX_AGE', 30 * 24 * 60 * 60 * 1000);
 config.exampleProductId = getenv.int('EXAMPLE_PRODUCT_ID', 10024);
 config.oauthBase = getenv('OAUTH_BASE', 'http://localhost:1234');
 
+
+
+// TESTING
+config.spidBase = getenv('SPID_BASE', 'http://id.localhost');
+
 module.exports = config;

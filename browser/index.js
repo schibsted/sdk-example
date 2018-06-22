@@ -21,9 +21,13 @@ function $$(klass) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    const { spidEnv, clientId, exampleProductId } = window.config;
+    const { spidEnv, clientId, exampleProductId, oauthBase, spidBase } = window.config;
     const redirectUri = `${window.location.origin}/safepage`;
     const identity = new Identity({ clientId, env: spidEnv, log: console.log, redirectUri });
+    identity._setOauthServerUrl(oauthBase);
+    identity._setSpidServerUrl(spidBase);
+    identity._setBffServerUrl(spidBase + '/authn');
+    identity._setHasSessionServerUrl(spidBase);
     const payment = new Payment({ clientId, env: spidEnv, log: console.log, redirectUri });
 
     identity.on('login', () => console.log('User is logged in to SSO.'));
