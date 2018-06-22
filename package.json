@@ -10,7 +10,7 @@
   },
   "scripts": {
     "build": "./build.sh",
-    "dev": "nodemon -i dist",
+    "dev": "./watch.sh && nodemon -w . -w browser -w dist server.js",
     "lint": "eslint ."
   },
   "dependencies": {
