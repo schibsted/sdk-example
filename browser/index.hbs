@@ -25,7 +25,9 @@
 
     {{#if userInfo}}
         <h1>
-            <img src="{{userInfo.picture}}" style="height: 1em" />
+            <div id="userInfo">
+                <img src="{{userInfo.picture}}" style="height: 1em" />
+            </div>
             Welcome, {{userInfo.preferred_username}}
         </h1>
     {{else}}
@@ -33,7 +35,7 @@
     {{/if}}
         <hr/>
         <label><input type="checkbox" id="use-popup"> Popup</label>
-        <label><input type="checkbox" id="use-new-flow"> New Flow</label>
+        <label><input type="checkbox" id="use-new-flow" checked> New Flow</label>
         <br/>
         using
         <label><input type="radio" value="" name="login-method" checked>Credentials</label>
