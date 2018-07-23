@@ -10,7 +10,10 @@
             window.config = {
                 spidEnv: '{{config.spidEnv}}',
                 clientId: '{{config.clientId}}',
-                exampleProductId: '{{config.exampleProductId}}'
+                exampleProductId: '{{config.exampleProductId}}',
+                oauthBase: '{{config.oauthBase}}',
+                spidBase: '{{config.spidBase}}',
+                sessionServiceBase : '{{config.sessionServiceBase}}',
             };
             if (console && console.log) {
                 console.log(JSON.stringify(window.config, undefined, 2));
