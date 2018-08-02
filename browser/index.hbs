@@ -10,7 +10,9 @@
             window.config = {
                 spidEnv: '{{config.spidEnv}}',
                 clientId: '{{config.clientId}}',
-                exampleProductId: '{{config.exampleProductId}}'
+                exampleProductId: '{{config.exampleProductId}}',
+                paymentPromoCodeProduct: '{{config.paymentPromoCodeProduct}}',
+                paymentPublisher: '{{config.paymentPublisher}}'
             };
             if (console && console.log) {
                 console.log(JSON.stringify(window.config, undefined, 2));
@@ -78,6 +80,14 @@
         </div>
         <script src="/dist/index.js"></script>
         <h2>Payment</h2>
-        <button class="buy-product-old-flow">Buy product</button>
+
+        <p>
+            SPiD payment flow:
+            <button class="buy-product-old-flow">Buy product</button>
+        </p>
+        <p>
+            BFF payment flow:
+            <button class="buy-promo-code-product">Buy PromoCode Product</button>
+        </p>
     </body>
 </html>
