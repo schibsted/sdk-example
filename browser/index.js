@@ -21,7 +21,7 @@ function $$(klass) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    const { spidEnv, clientId, exampleProductId } = window.config;
+    const { spidEnv, clientId, exampleProductId, paymentPromoCodeProduct, paymentPublisher } = window.config;
     const redirectUri = `${window.location.origin}/safepage`;
     const identity = new Identity({ clientId, env: spidEnv, log: console.log, redirectUri });
     const payment = new Payment({ clientId, env: spidEnv, log: console.log, redirectUri });
@@ -132,6 +132,20 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     /**
+     * This function will be re-implemented in account-browser-sdk
+     * @return {void}
+     */
+    function buyPromoCodeProduct() {
+        window.location = payment._bff.makeUrl(
+            'payment/purchase/code',
+            {
+                code: paymentPromoCodeProduct,
+                publisher: paymentPublisher,
+            },
+        )
+    }
+
+    /**
      * Redirect to checkout flow
      * @return {void}
      */
@@ -146,6 +160,7 @@ document.addEventListener("DOMContentLoaded", function() {
     $$('query-merchant-log-in').onclick = isLoggedInToMerchant;
     $$('introspect-token').onclick = introspectToken;
     $$('buy-product-old-flow').onclick = buyProduct;
+    $$('buy-promo-code-product').onclick = buyPromoCodeProduct;
 
     isLoggedInToSSO();
     isLoggedInToMerchant();
