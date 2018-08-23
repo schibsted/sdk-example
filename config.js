@@ -34,5 +34,6 @@ config.sessionServiceBase = getenv('SESSION_SERVICE_BASE', 'http://id.zoopermark
 
 // TESTING
 config.spidBase = getenv('SPID_BASE', 'http://id.localhost');
+config.hasSessionBase = getenv('SPID_HASSESSION_BASE', 'http://session.id.localhost');
 
 module.exports = config;
