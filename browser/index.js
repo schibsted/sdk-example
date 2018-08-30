@@ -51,12 +51,11 @@ document.addEventListener("DOMContentLoaded", function() {
             $$('is-logged-in-to-sso').textContent = (loggedIn ? 'Yes' : 'No');
             if (loggedIn) {
                 const userInfo = document.getElementById('userInfo');
-                const imgs = document.querySelector('#userInfo > img');
-                const img = imgs && imgs.length && imgs[0];
+                const img = document.querySelector('#userInfo > img');
                 if (img) {
                     const a = document.createElement('a');
                     a.href = identity.accountUrl();
-                    a.textContent = "Account page";
+                    a.title = "Account page";
                     userInfo.removeChild(img);
                     a.appendChild(img);
                     userInfo.appendChild(a);
