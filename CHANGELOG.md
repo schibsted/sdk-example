@@ -1,5 +1,9 @@
 # Changelog
 
+## v4.5.1
+
+* Upgraded to account-sdk-browser v3.1.0-itp.1
+
 ## v4.5.0
 
 * Upgraded to account-sdk-browser v3.1.0-itp.0
