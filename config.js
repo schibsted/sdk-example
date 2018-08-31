@@ -32,5 +32,7 @@ config.oauthBase = getenv('OAUTH_BASE', 'http://localhost:1234');
 // bff checkout flow
 config.paymentPromoCodeProduct = getenv('PAYMENT_PROMO_CODE_PRODUCT', 'VK-3M-T');
 config.paymentPublisher = getenv('PAYMENT_PUBLISHER', 'vkse');
+// session-service
+config.sessionDomain = getenv('SESSION_DOMAIN', 'http://id.zoopermarket.com');
 
 module.exports = config;

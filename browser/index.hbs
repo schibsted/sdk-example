@@ -8,11 +8,12 @@
         <script>
             // These configs will be filled by handlebars on the server side and js can access them
             window.config = {
-                spidEnv: '{{config.spidEnv}}',
                 clientId: '{{config.clientId}}',
                 exampleProductId: '{{config.exampleProductId}}',
                 paymentPromoCodeProduct: '{{config.paymentPromoCodeProduct}}',
-                paymentPublisher: '{{config.paymentPublisher}}'
+                paymentPublisher: '{{config.paymentPublisher}}',
+                sessionDomain: '{{config.sessionDomain}}',
+                spidEnv: '{{config.spidEnv}}',
             };
             if (console && console.log) {
                 console.log(JSON.stringify(window.config, undefined, 2));

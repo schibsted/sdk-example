@@ -21,9 +21,16 @@ function $$(klass) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    const { spidEnv, clientId, exampleProductId, paymentPromoCodeProduct, paymentPublisher } = window.config;
+    const {
+        clientId,
+        exampleProductId,
+        paymentPromoCodeProduct,
+        paymentPublisher,
+        sessionDomain,
+        spidEnv,
+    } = window.config;
     const redirectUri = `${window.location.origin}/safepage`;
-    const identity = new Identity({ clientId, env: spidEnv, log: console.log, redirectUri });
+    const identity = new Identity({ clientId, sessionDomain, env: spidEnv, log: console.log, redirectUri });
     const payment = new Payment({ clientId, env: spidEnv, log: console.log, redirectUri });
 
     identity.on('login', () => console.log('User is logged in to SSO.'));
@@ -203,7 +210,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     $$('logout-sso').onclick = function (e) {
         e.preventDefault();
-        identity.logout();
+        const redirectUri = window.location.origin;
+        identity.logout(redirectUri);
     };
 
     $$('logout-merchant').onclick = function (e) {
