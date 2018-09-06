@@ -1,5 +1,9 @@
 # Changelog
 
+## v4.5.3
+
+* Export 'Monetization' on the global 'window' object
+
 ## v4.5.2
 
 * Use '' as default for sessionDomain
