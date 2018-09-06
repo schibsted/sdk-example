@@ -2,9 +2,10 @@
 
 import 'regenerator-runtime/runtime';
 
-import { Identity, Payment } from '@schibsted/account-sdk-browser';
+import { Identity, Payment, Monetization } from '@schibsted/account-sdk-browser';
 window.Identity = Identity; // To be able to play around with it in the console...
 window.Payment = Payment;
+window.Monetization = Monetization;
 
 /**
  * Logout the user from merchant
