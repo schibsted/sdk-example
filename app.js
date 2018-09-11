@@ -110,6 +110,8 @@ app.get('/logout', (req, res) => {
 
 app.use('/browser', filterExt('css', 'ico'), express.static(`${__dirname}/browser`));
 app.get('/favicon.ico', (req, res) => res.redirect('/browser/favicon.ico'));
+app.get('/apple-touch-icon-precomposed.png', (_, res) => res.status(404));
+app.get('/apple-touch-icon.png', (_, res) => res.status(404));
 app.use('/dist', express.static('dist'));
 
 // For any route not found
