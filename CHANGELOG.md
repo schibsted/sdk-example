@@ -1,5 +1,9 @@
 # Changelog
 
+## v4.5.4
+
+* Change promo code product
+
 ## v4.5.3
 
 * Export 'Monetization' on the global 'window' object
