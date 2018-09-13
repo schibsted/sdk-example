@@ -30,7 +30,7 @@ config.cookieMaxAge = getenv.int('COOKIE_MAX_AGE', 30 * 24 * 60 * 60 * 1000);
 config.exampleProductId = getenv.int('EXAMPLE_PRODUCT_ID', 10024);
 config.oauthBase = getenv('OAUTH_BASE', 'http://localhost:1234');
 // bff checkout flow
-config.paymentPromoCodeProduct = getenv('PAYMENT_PROMO_CODE_PRODUCT', 'VK-3M-T');
+config.paymentPromoCodeProduct = getenv('PAYMENT_PROMO_CODE_PRODUCT', 'VK-6M-T');
 config.paymentPublisher = getenv('PAYMENT_PUBLISHER', 'vkse');
 // session-service
 config.sessionDomain = getenv('SESSION_DOMAIN', '');
