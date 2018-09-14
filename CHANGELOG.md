@@ -1,5 +1,10 @@
 # Changelog
 
+## v4.5.5
+
+* Upgraded to account-sdk-browser v3.1.0-itp.2
+* Add input boxes to check product/subscription boxes
+
 ## v4.5.4
 
 * Change promo code product
