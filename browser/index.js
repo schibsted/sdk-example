@@ -33,6 +33,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const redirectUri = `${window.location.origin}/safepage`;
     const identity = new Identity({ clientId, sessionDomain, env: spidEnv, log: console.log, redirectUri });
     const payment = new Payment({ clientId, env: spidEnv, log: console.log, redirectUri });
+    const monetization = new Monetization({ clientId, sessionDomain, env: spidEnv, log: console.log, redirectUri });
+    Object.assign(window, { identity, payment, monetization });
 
     identity.on('login', () => console.log('User is logged in to SSO.'));
 
@@ -219,4 +221,23 @@ document.addEventListener("DOMContentLoaded", function() {
         e.preventDefault();
         logoutMerchant();
     };
+
+    const monetizationCheck = (productIdGetter, resultContainer, fn) => async (e) => {
+        e.preventDefault();
+        const productId = productIdGetter();
+        const result = await monetization[fn](productId);
+        const resultDiv = document.createElement('pre');
+        resultDiv.innerText = JSON.stringify(result, null, 2);
+        resultContainer.appendChild(resultDiv);
+    }
+
+    $$('has-product').onclick = monetizationCheck(
+        () => $$('has-product-id').value,
+        $$('has-product-container'),
+        'hasProduct');
+
+    $$('has-subscription').onclick = monetizationCheck(
+        () => $$('has-subscription-id').value,
+        $$('has-subscription-container'),
+        'hasSubscription');
 });
