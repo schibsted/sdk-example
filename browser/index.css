@@ -39,3 +39,9 @@ a, a:active, a:visited, a:hover {
 button:hover, button:active {
     background-color: rgb(0, 35, 87);
 }
+
+.footer {
+    font-size: x-small;
+    font-style: italic;
+    color: grey;
+}
