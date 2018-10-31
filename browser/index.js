@@ -25,7 +25,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const {
         clientId,
         exampleProductId,
-        paymentPromoCodeProduct,
         paymentPublisher,
         sessionDomain,
         spidEnv,
@@ -148,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location = payment._bff.makeUrl(
             'payment/purchase/code',
             {
-                code: paymentPromoCodeProduct,
+                code: $$('buy-promo-code-product-id').value,
                 publisher: paymentPublisher,
             },
         )
