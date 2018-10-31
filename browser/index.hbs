@@ -10,7 +10,6 @@
             window.config = {
                 clientId: '{{config.clientId}}',
                 exampleProductId: '{{config.exampleProductId}}',
-                paymentPromoCodeProduct: '{{config.paymentPromoCodeProduct}}',
                 paymentPublisher: '{{config.paymentPublisher}}',
                 sessionDomain: '{{config.sessionDomain}}',
                 spidEnv: '{{config.spidEnv}}',
@@ -88,6 +87,7 @@
         </p>
         <p>
             BFF payment flow:
+            <input class="buy-promo-code-product-id" type="text" value="{{config.paymentPromoCodeProduct}}" />
             <button class="buy-promo-code-product">Buy PromoCode Product</button>
         </p>
         <p class="has-product-container">
