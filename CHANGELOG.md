@@ -1,5 +1,10 @@
 # Changelog
 
+## v4.5.7
+
+* Upgraded to account-sdk-browser v3.0.1-rc.1
+* Add editable text input with promo code product id
+
 ## v4.5.5
 
 * Upgraded to account-sdk-browser v3.1.0-itp.2
