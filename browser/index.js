@@ -192,7 +192,6 @@ document.addEventListener("DOMContentLoaded", function() {
             loginHint: document.getElementById('preferred-email').value,
             oneStepLogin: document.getElementById('one-step-login').checked,
         };
-        console.log(tvar.oneStepLogin, 'tvar');
 
         const popup = identity.login({
             state,
