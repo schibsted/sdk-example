@@ -1,5 +1,11 @@
 # Changelog
 
+## v4.5.8
+
+* Upgraded to account-sdk-browser v3.0.3
+* Use purchasePromoCodeProductFlowUrl for new payment flow
+* Add checkbox one step login
+
 ## v4.5.7
 
 * Upgraded to account-sdk-browser v3.0.1-rc.1
