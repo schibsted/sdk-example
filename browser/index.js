@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
     } = window.config;
     const redirectUri = `${window.location.origin}/safepage`;
     const identity = new Identity({ clientId, sessionDomain, env: spidEnv, log: console.log, redirectUri });
-    const payment = new Payment({ clientId, env: spidEnv, log: console.log, redirectUri });
+    const payment = new Payment({ clientId, env: spidEnv, log: console.log, redirectUri, publisher: paymentPublisher });
     const monetization = new Monetization({ clientId, sessionDomain, env: spidEnv, log: console.log, redirectUri });
     Object.assign(window, { identity, payment, monetization });
 
@@ -144,13 +144,7 @@ document.addEventListener("DOMContentLoaded", function() {
      * @return {void}
      */
     function buyPromoCodeProduct() {
-        window.location = payment._bff.makeUrl(
-            'payment/purchase/code',
-            {
-                code: $$('buy-promo-code-product-id').value,
-                publisher: paymentPublisher,
-            },
-        )
+        window.location = payment.purchasePromoCodeProductFlowUrl($$('buy-promo-code-product-id').value, generateState())
     }
 
     /**
@@ -174,16 +168,21 @@ document.addEventListener("DOMContentLoaded", function() {
     isLoggedInToMerchant();
     isConnected();
 
-    function login(e) {
-        e.preventDefault();
-
-        const preferPopup = document.getElementById('use-popup').checked;
+    function generateState(preferPopup = false) {
         const char = () => Math.floor((Math.random() * (122 - 97)) + 97);
         const stateObj = {
             id: Array.from({length: 20}, () => String.fromCharCode(char())).join(''),
             popup: preferPopup,
         };
-        const state = btoa(JSON.stringify(stateObj));
+        return btoa(JSON.stringify(stateObj));
+    }
+
+    function login(e) {
+        e.preventDefault();
+
+        const preferPopup = document.getElementById('use-popup').checked;
+        const state = generateState(preferPopup);
+
         const popup = identity.login({
             state,
             scope: 'openid profile',
@@ -191,6 +190,7 @@ document.addEventListener("DOMContentLoaded", function() {
             preferPopup,
             newFlow: document.getElementById('use-new-flow').checked,
             loginHint: document.getElementById('preferred-email').value,
+            oneStepLogin: document.getElementById('one-step-login').checked,
         });
         if (popup) {
             window.addEventListener("message", event => {
