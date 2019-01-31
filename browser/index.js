@@ -183,16 +183,6 @@ document.addEventListener("DOMContentLoaded", function() {
         const preferPopup = document.getElementById('use-popup').checked;
         const state = generateState(preferPopup);
 
-        const tvar = {
-            state,
-            scope: 'openid profile',
-            acrValues: document.querySelector('input[type=radio][name=login-method]:checked').value,
-            preferPopup,
-            newFlow: document.getElementById('use-new-flow').checked,
-            loginHint: document.getElementById('preferred-email').value,
-            oneStepLogin: document.getElementById('one-step-login').checked,
-        };
-
         const popup = identity.login({
             state,
             scope: 'openid profile',
