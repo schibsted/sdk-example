@@ -20,7 +20,7 @@
     "express": "^4.15.3",
     "express-session": "^1.15.3",
     "getenv": "^0.7.0",
-    "hbs": "^4.0.2",
+    "hbs": "^4.0.4",
     "helmet": "^3.13.0",
     "jsonwebtoken": "^8.3.0",
     "node-fetch": "^2.2.0",
