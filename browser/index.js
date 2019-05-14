@@ -141,10 +141,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
     /**
      * This function will be re-implemented in account-browser-sdk
-     * @return {void}
+     * @param {Object} paymentInstance - payment object instance
+     * @returns {function}
      */
-    function buyPromoCodeProduct() {
-        window.location = payment.purchasePromoCodeProductFlowUrl($$('buy-promo-code-product-id').value, generateState())
+    function buyPromoCodeProduct(paymentInstance = payment) {
+        return function buyPromoCodeProductOnClick(e) {
+            const productId = e.target.parentNode.getElementsByClassName('product-id')[0].value;
+            window.location = paymentInstance.purchasePromoCodeProductFlowUrl(productId, generateState());
+        }
     }
 
     /**
@@ -162,7 +166,12 @@ document.addEventListener("DOMContentLoaded", function() {
     $$('query-merchant-log-in').onclick = isLoggedInToMerchant;
     $$('introspect-token').onclick = introspectToken;
     $$('buy-product-old-flow').onclick = buyProduct;
-    $$('buy-promo-code-product').onclick = buyPromoCodeProduct;
+    $$('buy-promo-code-product').onclick = buyPromoCodeProduct();
+    $$('buy-promo-code-product-alternative-client').onclick = buyPromoCodeProduct(
+        new Payment(
+            window.config.alternativeClient,
+        ),
+    );
 
     isLoggedInToSSO();
     isLoggedInToMerchant();

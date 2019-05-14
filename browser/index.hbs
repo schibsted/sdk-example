@@ -14,6 +14,14 @@
                 sessionDomain: '{{config.sessionDomain}}',
                 spidEnv: '{{config.spidEnv}}',
             };
+            {{#if config.alternativeClient.paymentPromoCodeProduct}}
+                window.config.alternativeClient = {
+                    paymentPromoCodeProduct: '{{config.alternativeClient.paymentPromoCodeProduct}}',
+                    clientId: '{{config.alternativeClient.clientId}}',
+                    publisher: '{{config.alternativeClient.publisher}}',
+                    redirectUri: '{{config.alternativeClient.redirectUri}}',
+                };
+            {{/if}}
             if (console && console.log) {
                 console.log(JSON.stringify(window.config, undefined, 2));
             }
@@ -88,9 +96,16 @@
         </p>
         <p>
             PromoCode product code:
-            <input class="buy-promo-code-product-id" type="text" value="{{config.paymentPromoCodeProduct}}" />
+            <input class="product-id" type="text" value="{{config.paymentPromoCodeProduct}}" />
             <button class="buy-promo-code-product">Buy PromoCode Product</button>
         </p>
+    {{#if config.alternativeClient.paymentPromoCodeProduct}}
+        <p>
+            PromoCode product code for {{config.alternativeClient.publisher}} client:
+            <input class="product-id" type="text" value="{{config.alternativeClient.paymentPromoCodeProduct}}" />
+            <button class="buy-promo-code-product-alternative-client">Buy PromoCode Product for {{config.alternativeClient.publisher}} client</button>
+        </p>
+    {{/if}}
         <p class="has-product-container">
             Product access:
             <input class="has-product-id" type="text"></input>

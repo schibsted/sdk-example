@@ -35,4 +35,10 @@ config.paymentPublisher = getenv('PAYMENT_PUBLISHER', 'vkse');
 // session-service
 config.sessionDomain = getenv('SESSION_DOMAIN', '');
 
+config.alternativeClient = {};
+config.alternativeClient.paymentPromoCodeProduct = getenv('ALTERNATIVE_CLIENT_PAYMENT_PROMO_CODE_PRODUCT', '');
+config.alternativeClient.clientId = getenv('ALTERNATIVE_CLIENT_CLIENT_ID', '');
+config.alternativeClient.publisher = getenv('ALTERNATIVE_CLIENT_PAYMENT_PUBLISHER', '');
+config.alternativeClient.redirectUri = getenv('ALTERNATIVE_CLIENT_REDIRECT_URI', '');
+
 module.exports = config;
