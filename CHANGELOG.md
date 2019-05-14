@@ -1,5 +1,10 @@
 # Changelog
 
+## v4.5.9
+
+* Upgraded to account-sdk-browser v3.0.4
+* Allow purchase flow for alternative client
+
 ## v4.5.8
 
 * Upgraded to account-sdk-browser v3.0.3
