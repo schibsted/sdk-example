@@ -173,7 +173,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 window.config.alternativeClient,
             )
         );
-    };
+    }
 
     isLoggedInToSSO();
     isLoggedInToMerchant();
