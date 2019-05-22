@@ -167,11 +167,13 @@ document.addEventListener("DOMContentLoaded", function() {
     $$('introspect-token').onclick = introspectToken;
     $$('buy-product-old-flow').onclick = buyProduct;
     $$('buy-promo-code-product').onclick = buyPromoCodeProduct();
-    $$('buy-promo-code-product-alternative-client').onclick = buyPromoCodeProduct(
-        new Payment(
-            window.config.alternativeClient,
-        ),
-    );
+    if (window.config.alternativeClient) {
+        $$('buy-promo-code-product-alternative-client').onclick = buyPromoCodeProduct(
+            new Payment(
+                window.config.alternativeClient,
+            )
+        );
+    };
 
     isLoggedInToSSO();
     isLoggedInToMerchant();
