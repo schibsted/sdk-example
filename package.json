@@ -14,33 +14,33 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@schibsted/account-sdk-browser": "^3.0.4",
-    "cookie-parser": "^1.4.3",
+    "@schibsted/account-sdk-browser": "^3.0.5",
+    "cookie-parser": "^1.4.4",
     "dotenv": "^5.0.0",
-    "express": "^4.15.3",
-    "express-session": "^1.15.3",
+    "express": "^4.17.1",
+    "express-session": "^1.16.2",
     "getenv": "^0.7.0",
     "hbs": "^4.0.4",
-    "helmet": "^3.13.0",
-    "jsonwebtoken": "^8.3.0",
-    "node-fetch": "^2.2.0",
+    "helmet": "^3.18.0",
+    "jsonwebtoken": "^8.5.1",
+    "node-fetch": "^2.6.0",
     "passport": "^0.4.0",
-    "passport-oauth2": "^1.4.0",
+    "passport-oauth2": "^1.5.0",
     "passport-oauth2-middleware": "^1.0.3",
-    "request": "^2.87.0",
-    "request-promise": "^4.2.2",
-    "token-introspection": "^1.1.0"
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4",
+    "token-introspection": "^1.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
     "eslint": "^4.12.0",
-    "eslint-plugin-import": "^2.13.0",
-    "nodemon": "^1.18.3",
+    "eslint-plugin-import": "^2.18.0",
+    "nodemon": "^1.19.1",
     "regenerator-runtime": "^0.11.1",
-    "webpack": "^4.16.5",
-    "webpack-cli": "^3.3.2"
+    "webpack": "^4.35.3",
+    "webpack-cli": "^3.3.6"
   },
   "babel": {
     "presets": [
