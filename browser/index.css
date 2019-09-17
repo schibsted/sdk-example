@@ -45,3 +45,71 @@ button:hover, button:active {
     font-style: italic;
     color: grey;
 }
+
+.simplified-login {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+  animation-name: fadeIn;
+  animation-duration: 0.4s
+}
+  
+.simplified-login-content {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  background-color: #fefefe;
+  width: 100%;
+  animation-name: slideIn;
+  animation-duration: 0.4s
+}
+
+.close-simplified-login {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close-simplified-login:hover,
+.close-simplified-login:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.simplified-login-header {
+  padding: 2px 10px;
+  background-color: rgb(150, 158, 170);
+  color: white;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  margin: 400px auto;
+  border: 3px solid rgba(255,255,255,.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0} 
+  to {opacity: 1}
+}
+
+@keyframes slideIn {
+  from {bottom: -300px; opacity: 0}
+  to {bottom: 0; opacity: 1}
+}
+
+@keyframes spin {
+  to { -webkit-transform: rotate(360deg); }
+}

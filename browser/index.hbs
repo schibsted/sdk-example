@@ -60,6 +60,7 @@
             <button class="update-is-logged-in-to-sso">Update</button>
             <button class="login" title="Login to Schibsted SSO">Login</button>
             <button class="logout-sso" title="Logout from Schibsted SSO">Logout</button>
+            <button class="simplified-login-trigger" title="Simplified login">Trigger simplified login</button>
             <input type="email" id="preferred-email" placeholder="preferred@user.email"/>
         </p>
         <p>
@@ -117,5 +118,18 @@
             <button class="has-subscription">Check</button>
         </p>
         <p class="footer">Welcome to SDK Example v{{pkgJson.version}}</p>
+
+        <div class="simplified-login">
+            <div class="spinner"></div>
+            <div class="simplified-login-content">
+                <div class="simplified-login-header">
+                    <span class="close-simplified-login">&times;</span>
+                    <h3>Simplified login</h3>
+                </div>
+                <p>Continue with your account:
+                <button class="simplified-login-action" title="Simplified login action"></button>
+                </p>
+            </div>
+        </div>
     </body>
 </html>
