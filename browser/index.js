@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
         spidEnv,
     } = window.config;
     const redirectUri = `${window.location.origin}/safepage`;
-    const identity = new Identity({ clientId, sessionDomain, env: spidEnv, log: console.log, redirectUri });
+    const identity = new Identity({ clientId, sessionDomain, env: spidEnv, siteSpecificLogout: true, log: console.log, redirectUri });
     const payment = new Payment({ clientId, env: spidEnv, log: console.log, redirectUri, publisher: paymentPublisher });
     const monetization = new Monetization({ clientId, sessionDomain, env: spidEnv, log: console.log, redirectUri });
     Object.assign(window, { identity, payment, monetization });
