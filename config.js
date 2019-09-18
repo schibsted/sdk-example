@@ -34,6 +34,7 @@ config.paymentPromoCodeProduct = getenv('PAYMENT_PROMO_CODE_PRODUCT', 'VK-3MT-E-
 config.paymentPublisher = getenv('PAYMENT_PUBLISHER', 'vkse');
 // session-service
 config.sessionDomain = getenv('SESSION_DOMAIN', '');
+config.siteSpecificLogout = getenv.bool('SITE_SPECIFIC_LOGOUT', false);
 
 config.alternativeClient = {};
 config.alternativeClient.paymentPromoCodeProduct = getenv('ALTERNATIVE_CLIENT_PAYMENT_PROMO_CODE_PRODUCT', '');

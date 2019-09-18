@@ -13,6 +13,7 @@
                 paymentPublisher: '{{config.paymentPublisher}}',
                 sessionDomain: '{{config.sessionDomain}}',
                 spidEnv: '{{config.spidEnv}}',
+                siteSpecificLogout: {{config.siteSpecificLogout}},
             };
             {{#if config.alternativeClient.paymentPromoCodeProduct}}
                 window.config.alternativeClient = {
@@ -60,7 +61,9 @@
             <button class="update-is-logged-in-to-sso">Update</button>
             <button class="login" title="Login to Schibsted SSO">Login</button>
             <button class="logout-sso" title="Logout from Schibsted SSO">Logout</button>
-            <button class="simplified-login-trigger" title="Simplified login">Trigger simplified login</button>
+            {{#if config.siteSpecificLogout}}
+                <button class="simplified-login-trigger" title="Simplified login">Trigger simplified login</button>
+            {{/if}}
             <input type="email" id="preferred-email" placeholder="preferred@user.email"/>
         </p>
         <p>
