@@ -226,6 +226,54 @@ document.addEventListener("DOMContentLoaded", function() {
         identity.logout(redirectUri);
     };
 
+    const simplifiedLogin = $$('simplified-login');
+    const simplifiedLoginContent = $$('simplified-login-content');
+
+    function hideSimplifiedLogin() {
+        simplifiedLogin.style.display = 'none';
+        simplifiedLoginContent.style.display = 'none';
+    }
+
+    $$('simplified-login-trigger').onclick = async function (e) {
+        e.preventDefault();
+        simplifiedLogin.style.display = 'block';
+        const loadingSpinner = $$('spinner');
+        loadingSpinner.style.display = 'block';
+
+        const userContextData = await identity.getUserContextData();
+        loadingSpinner.style.display = 'none';
+
+        if (!userContextData) {
+            console.log('Simplified login no data, user might not be logged in');
+            hideSimplifiedLogin();
+            return;
+        }
+
+        simplifiedLoginContent.style.display = 'block';
+        $$('simplified-login-action').textContent = userContextData.identifier;
+        $$('simplified-login-action').onclick = async function (e) {
+            e.preventDefault();
+            const state = generateState();
+            identity.login({
+                state,
+                scope: 'openid profile',
+                newFlow: true,
+                loginHint: userContextData.identifier,
+            });
+        };
+    };
+
+    $$('close-simplified-login').onclick = async function (e) {
+        e.preventDefault();
+        hideSimplifiedLogin();
+    }
+
+    window.onclick = function (e) {
+        if (e.target == simplifiedLogin) {
+            hideSimplifiedLogin();
+        }
+    }
+
     $$('logout-merchant').onclick = function (e) {
         e.preventDefault();
         logoutMerchant();
