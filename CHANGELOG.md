@@ -1,5 +1,10 @@
 # Changelog
 
+## v4.5.12
+
+* Upgraded to account-sdk-browser v3.0.6
+* Support siteSpecificLogout configuration
+
 ## v4.5.9
 
 * Upgraded to account-sdk-browser v3.0.4
