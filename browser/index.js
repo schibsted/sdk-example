@@ -251,7 +251,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         simplifiedLoginContent.style.display = 'block';
-        $$('simplified-login-action').textContent = userContextData.identifier;
+        $$('simplified-login-action').textContent = userContextData.display_text;
         $$('simplified-login-action').onclick = async function (e) {
             e.preventDefault();
             const state = generateState();
