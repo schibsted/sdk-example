@@ -1,5 +1,8 @@
 # Changelog
 
+## v4.5.13
+* Use dispay_text field from current user data
+
 ## v4.5.12
 
 * Upgraded to account-sdk-browser v3.0.6
