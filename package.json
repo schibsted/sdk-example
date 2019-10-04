@@ -11,7 +11,9 @@
   "scripts": {
     "build": "./build.sh",
     "dev": "./watch.sh && nodemon -w . -w browser -w dist server.js",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "@schibsted/account-sdk-browser": "^3.1.0-rc",
@@ -29,7 +31,8 @@
     "passport-oauth2-middleware": "^1.0.3",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
-    "token-introspection": "^1.2.0"
+    "token-introspection": "^1.2.0",
+    "snyk": "^1.230.5"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
@@ -57,5 +60,6 @@
       ]
     ]
   },
-  "private": true
+  "private": true,
+  "snyk": true
 }
