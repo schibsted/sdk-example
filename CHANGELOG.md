@@ -1,5 +1,8 @@
 # Changelog
 
+## v4.5.15
+* Upgraded to account-sdk-browser v3.1.0
+
 ## v4.5.14
 * Upgraded to account-sdk-browser v3.1.0-rc
 
