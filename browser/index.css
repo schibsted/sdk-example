@@ -113,3 +113,17 @@ button:hover, button:active {
 @keyframes spin {
   to { -webkit-transform: rotate(360deg); }
 }
+
+#simplified-login-widget-container {
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width:100%;
+    top: 0;
+    bottom: 0;
+    display: none;
+}
+
+#simplified-login-widget {
+    width: 450px;
+}
