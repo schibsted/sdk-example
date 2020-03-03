@@ -206,7 +206,9 @@ document.addEventListener("DOMContentLoaded", function() {
         };
 
         try {
-            const loadingWidgetRes = await identity.displaySimplifiedLoginWidget('simplified-login-widget', loginParams);
+            const loadingWidgetRes = await identity.displaySimplifiedLoginWidget('simplified-login-widget', loginParams, () => {
+                document.getElementById('simplified-login-widget-container').style.display = 'none';
+            });
             if (loadingWidgetRes === true) {
                 document.getElementById('simplified-login-widget-container').style.display = 'flex';
             }
