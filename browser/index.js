@@ -160,6 +160,64 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location = payment.purchaseProductFlowUrl(exampleProductId);
     }
 
+    async function simplifiedLoginWidget(e) {
+        e.preventDefault();
+
+        Identity.prototype.displaySimplifiedLoginWidget = async function(containerId, loginParams, closeHandler) {
+            // getUserContextData doenst throw exception
+            const userData = await this.getUserContextData();
+            const widgetUrl = this._bffService.makeUrl('simplified-login-widget', { client_id: this.clientId }, false);
+
+            return new Promise(
+                (resolve, reject) => {
+                    if (!userData || !userData.display_text || !userData.identifier) {
+                        return reject(new Error('Missing user data'));
+                    }
+
+                    const initialParams = {
+                        display_text: userData.display_text,
+                        env: this.env,
+                        client_name: userData.client_name
+                    };
+
+                    const loginHandler = () => {
+                        this.login(Object.assign(loginParams, {loginHint: userData.identifier}));
+                    };
+
+                    const simplifiedLoginWidget = document.createElement("script");
+                    simplifiedLoginWidget.type = "text/javascript";
+                    simplifiedLoginWidget.src = widgetUrl;
+                    simplifiedLoginWidget.onload = () => {
+                        window.openSimplifiedLoginWidget(containerId, initialParams, loginHandler, closeHandler);
+                        resolve(true);
+                    };
+                    simplifiedLoginWidget.onerror = () => {
+                        reject(new Error('Error when loading simplified login widget content'));
+                    };
+                    document.getElementsByTagName('body')[0].appendChild(simplifiedLoginWidget);
+                });
+        };
+
+        const state = generateState();
+
+        const loginParams = {
+            state,
+            scope: 'openid profile',
+        };
+
+        try {
+            const loadingWidgetRes = await identity.displaySimplifiedLoginWidget('simplified-login-widget', loginParams, () => {
+                document.getElementById('simplified-login-widget-container').style.display = 'none';
+            });
+            if (loadingWidgetRes === true) {
+                document.getElementById('simplified-login-widget-container').style.display = 'flex';
+            }
+            console.log(loadingWidgetRes, 'loadingWidgetRes');
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     $$('update-is-logged-in-to-sso').onclick = isLoggedInToSSO;
     $$('update-is-connected').onclick = isConnected;
     $$('get-user-info-sso').onclick = getUserSSO;
@@ -168,6 +226,7 @@ document.addEventListener("DOMContentLoaded", function() {
     $$('introspect-token').onclick = introspectToken;
     $$('buy-product-old-flow').onclick = buyProduct;
     $$('buy-promo-code-product').onclick = buyPromoCodeProduct();
+    $$('simplified-login-widget-trigger').onclick = simplifiedLoginWidget;
     if (window.config.alternativeClient) {
         $$('buy-promo-code-product-alternative-client').onclick = buyPromoCodeProduct(
             new Payment(
@@ -226,54 +285,6 @@ document.addEventListener("DOMContentLoaded", function() {
         const redirectUri = window.location.origin;
         identity.logout(redirectUri);
     };
-
-    const simplifiedLogin = $$('simplified-login');
-    const simplifiedLoginContent = $$('simplified-login-content');
-
-    function hideSimplifiedLogin() {
-        simplifiedLogin.style.display = 'none';
-        simplifiedLoginContent.style.display = 'none';
-    }
-
-    $$('simplified-login-trigger').onclick = async function (e) {
-        e.preventDefault();
-        simplifiedLogin.style.display = 'block';
-        const loadingSpinner = $$('spinner');
-        loadingSpinner.style.display = 'block';
-
-        const userContextData = await identity.getUserContextData();
-        loadingSpinner.style.display = 'none';
-
-        if (!userContextData) {
-            console.log('Simplified login no data, user might not be logged in');
-            hideSimplifiedLogin();
-            return;
-        }
-
-        simplifiedLoginContent.style.display = 'block';
-        $$('simplified-login-action').textContent = userContextData.display_text;
-        $$('simplified-login-action').onclick = async function (e) {
-            e.preventDefault();
-            const state = generateState();
-            identity.login({
-                state,
-                scope: 'openid profile',
-                newFlow: true,
-                loginHint: userContextData.identifier,
-            });
-        };
-    };
-
-    $$('close-simplified-login').onclick = async function (e) {
-        e.preventDefault();
-        hideSimplifiedLogin();
-    }
-
-    window.onclick = function (e) {
-        if (e.target == simplifiedLogin) {
-            hideSimplifiedLogin();
-        }
-    }
 
     $$('logout-merchant').onclick = function (e) {
         e.preventDefault();
