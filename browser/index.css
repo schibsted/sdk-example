@@ -121,7 +121,10 @@ button:hover, button:active {
     width:100%;
     top: 0;
     bottom: 0;
+    left: 0;
+    right: 0;
     display: none;
+    background-color: rgba(0,0,0, 0.5);
 }
 
 #simplified-login-widget {

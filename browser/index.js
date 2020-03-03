@@ -162,6 +162,41 @@ document.addEventListener("DOMContentLoaded", function() {
 
     async function simplifiedLoginWidget(e) {
         e.preventDefault();
+
+        Identity.prototype.displaySimplifiedLoginWidget = async function(containerId, loginParams, closeHandler) {
+            // getUserContextData doenst throw exception
+            const userData = await this.getUserContextData();
+            const widgetUrl = '//localhost:8080/main.js'; // this._bffService.makeUrl('simplified-login-widget', { client_id: this.clientId }, false);
+
+            return new Promise(
+                (resolve, reject) => {
+                    if (!userData || !userData.display_text || !userData.identifier) {
+                        return reject(new Error('Missing user data'));
+                    }
+
+                    const initialParams = {
+                        display_text: userData.display_text,
+                        env: this.env,
+                    };
+
+                    const loginHandler = () => {
+                        this.login(Object.assign(loginParams, {loginHint: userData.identifier}));
+                    };
+
+                    const simplifiedLoginWidget = document.createElement("script");
+                    simplifiedLoginWidget.type = "text/javascript";
+                    simplifiedLoginWidget.src = widgetUrl;
+                    simplifiedLoginWidget.onload = () => {
+                        window.openSimplifiedLoginWidget(containerId, initialParams, loginHandler, closeHandler);
+                        resolve(true);
+                    };
+                    simplifiedLoginWidget.onerror = () => {
+                        reject(new Error('Error when loading simplified login widget content'));
+                    };
+                    document.getElementsByTagName('body')[0].appendChild(simplifiedLoginWidget);
+                });
+        };
+
         const state = generateState();
 
         const loginParams = {
