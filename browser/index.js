@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", function() {
         Identity.prototype.displaySimplifiedLoginWidget = async function(containerId, loginParams, closeHandler) {
             // getUserContextData doenst throw exception
             const userData = await this.getUserContextData();
-            const widgetUrl = '//localhost:8080/main.js'; // this._bffService.makeUrl('simplified-login-widget', { client_id: this.clientId }, false);
+            const widgetUrl = this._bffService.makeUrl('simplified-login-widget', { client_id: this.clientId }, false);
 
             return new Promise(
                 (resolve, reject) => {

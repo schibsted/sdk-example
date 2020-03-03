@@ -116,7 +116,7 @@ button:hover, button:active {
 
 #simplified-login-widget-container {
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
     position: fixed;
     width:100%;
     top: 0;
@@ -125,6 +125,13 @@ button:hover, button:active {
     right: 0;
     display: none;
     background-color: rgba(0,0,0, 0.5);
+}
+
+
+@media (min-width: 575px) {
+    #simplified-login-widget-container {
+        align-items: center;
+    }
 }
 
 #simplified-login-widget {
