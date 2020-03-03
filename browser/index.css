@@ -135,5 +135,11 @@ button:hover, button:active {
 }
 
 #simplified-login-widget {
-    width: 450px;
+    width: 100%;
+}
+
+@media (min-width: 575px) {
+    #simplified-login-widget {
+        width: 450px;
+    }
 }
