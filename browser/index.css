@@ -135,11 +135,20 @@ button:hover, button:active {
 }
 
 #simplified-login-widget {
-    width: 100%;
+  width: 100%;
+  position: relative;
+  height: 427px;
+}
+
+@media (min-width: 475px) {
+  #simplified-login-widget {
+      height: 496px;
+  }
 }
 
 @media (min-width: 575px) {
-    #simplified-login-widget {
-        width: 450px;
-    }
+  #simplified-login-widget {
+      width: 450px;
+      height: 445px;
+  }
 }
