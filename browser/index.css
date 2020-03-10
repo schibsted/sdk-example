@@ -137,7 +137,7 @@ button:hover, button:active {
 #simplified-login-widget {
   width: 100%;
   position: relative;
-  height: 427px;
+  height: 449px;
 }
 
 @media (min-width: 475px) {
@@ -149,6 +149,12 @@ button:hover, button:active {
 @media (min-width: 575px) {
   #simplified-login-widget {
       width: 450px;
-      height: 445px;
+      height: 480px;
   }
+}
+
+@media (max-width: 750px) and (orientation: landscape) {
+  #simplified-login-widget {
+    height: 100vh;
+}
 }
