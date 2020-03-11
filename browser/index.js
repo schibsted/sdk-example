@@ -177,7 +177,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     const initialParams = {
                         display_text: userData.display_text,
                         env: this.env,
-                        client_name: userData.client_name
+                        client_name: userData.client_name,
+                        clientId: this.clientId
                     };
 
                     const loginHandler = () => {
