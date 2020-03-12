@@ -137,18 +137,13 @@ button:hover, button:active {
 #simplified-login-widget {
   width: 100%;
   position: relative;
-  height: 463px;
-}
-
-@media (min-width: 475px) {
-  #simplified-login-widget {
-    height: 511px;
-  }
+  height: calc(100vh - 25%);
 }
 
 @media (min-width: 575px) {
   #simplified-login-widget {
       width: 450px;
+      height: 480px;
     }
 }
 
