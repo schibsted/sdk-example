@@ -178,7 +178,8 @@ document.addEventListener("DOMContentLoaded", function() {
                         display_text: userData.display_text,
                         env: this.env,
                         client_name: userData.client_name,
-                        clientId: this.clientId
+                        clientId: this.clientId,
+                        windowWidth: window.innerWidth,
                     };
 
                     const loginHandler = () => {
@@ -188,7 +189,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     const simplifiedLoginWidget = document.createElement("script");
                     simplifiedLoginWidget.type = "text/javascript";
                     simplifiedLoginWidget.src = widgetUrl;
-                    simplifiedLoginWidget.onload = () => {
+                    simplifiedLoginWidget.onload = () => {                                                
                         window.openSimplifiedLoginWidget(containerId, initialParams, loginHandler, closeHandler);
                         resolve(true);
                     };
