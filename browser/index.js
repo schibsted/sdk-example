@@ -179,7 +179,10 @@ document.addEventListener("DOMContentLoaded", function() {
                         env: this.env,
                         client_name: userData.client_name,
                         clientId: this.clientId,
-                        windowWidth: window.innerWidth,
+                        windowWidth: () => window.innerWidth,
+                        windowOnResize: (f) => {
+                            window.onresize = f;
+                        },
                     };
 
                     const loginHandler = () => {
