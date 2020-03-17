@@ -212,10 +212,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
         try {
             const loadingWidgetRes = await identity.displaySimplifiedLoginWidget('simplified-login-widget', loginParams, () => {
-                document.getElementById('simplified-login-widget-container').style.display = 'none';
+                document.getElementById('simplified-login-widget').style.display = 'none';
             });
             if (loadingWidgetRes === true) {
-                document.getElementById('simplified-login-widget-container').style.display = 'flex';
+                document.getElementById('simplified-login-widget').style.display = 'block';
             }
             console.log(loadingWidgetRes, 'loadingWidgetRes');
         } catch (e) {
