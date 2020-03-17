@@ -163,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function() {
     async function simplifiedLoginWidget(e) {
         e.preventDefault();
 
-        Identity.prototype.displaySimplifiedLoginWidget = async function(containerId, loginParams, closeHandler) {
+        Identity.prototype.displaySimplifiedLoginWidget = async function(loginParams) {
             // getUserContextData doenst throw exception
             const userData = await this.getUserContextData();
             const widgetUrl = this._bffService.makeUrl('simplified-login-widget', { client_id: this.clientId }, false);
@@ -211,12 +211,7 @@ document.addEventListener("DOMContentLoaded", function() {
         };
 
         try {
-            const loadingWidgetRes = await identity.displaySimplifiedLoginWidget('simplified-login-widget', loginParams, () => {
-                document.getElementById('simplified-login-widget').style.display = 'none';
-            });
-            if (loadingWidgetRes === true) {
-                document.getElementById('simplified-login-widget').style.display = 'block';
-            }
+            const loadingWidgetRes = await identity.displaySimplifiedLoginWidget(loginParams);
             console.log(loadingWidgetRes, 'loadingWidgetRes');
         } catch (e) {
             console.log(e);
