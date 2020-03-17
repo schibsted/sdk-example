@@ -114,6 +114,3 @@ button:hover, button:active {
   to { -webkit-transform: rotate(360deg); }
 }
 
-#simplified-login-widget {
- display: none;
-}

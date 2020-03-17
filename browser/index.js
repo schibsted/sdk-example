@@ -193,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     simplifiedLoginWidget.type = "text/javascript";
                     simplifiedLoginWidget.src = widgetUrl;
                     simplifiedLoginWidget.onload = () => {                                                
-                        window.openSimplifiedLoginWidget(containerId, initialParams, loginHandler, closeHandler);
+                        window.openSimplifiedLoginWidget(initialParams, loginHandler);
                         resolve(true);
                     };
                     simplifiedLoginWidget.onerror = () => {
