@@ -1,5 +1,8 @@
 # Changelog
 
+## v4.7.1
+* Use simplified login widget from browser sdk
+
 ## v4.6.1
 * PoC of simplified login widget
 
