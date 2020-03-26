@@ -192,6 +192,23 @@ document.addEventListener("DOMContentLoaded", function() {
                 window.config.alternativeClient,
             )
         );
+        $$('buy-promo-code-product-alternative-client-pay-now-login-after').onclick = (e) => {
+            const payment = new Payment(
+                window.config.alternativeClient,
+            );
+
+            Payment.prototype.payNowLoginAfterPromoCodeProdutUrl = function (code, state = '', redirectUri = this.redirectUri) {
+                return this._bff.makeUrl('payment/purchase/code/anonymous/vipps', {
+                    code,
+                    publisher: this.publisher,
+                    state,
+                    redirect_uri: redirectUri
+                });
+            };
+
+            const productId = e.target.parentNode.getElementsByClassName('product-id')[0].value;
+            window.location = payment.payNowLoginAfterPromoCodeProdutUrl(productId);
+        };
     }
 
     isLoggedInToSSO();
