@@ -250,14 +250,16 @@ document.addEventListener("DOMContentLoaded", function() {
         logoutMerchant();
     };
 
-    const monetizationCheck = (productIdGetter, resultContainer, fn) => async (e) => {
+    const monetizationCheck = (productIdGetter, resultContainer, fn, userId) => async (e) => {
         e.preventDefault();
         const productId = productIdGetter();
-        const result = await monetization[fn](productId);
+        const result = userId && fn === 'hasAccess'
+            ? await monetization[fn](productId.split(','), userId)
+            : await monetization[fn](productId);
         const resultDiv = document.createElement('pre');
         resultDiv.innerText = JSON.stringify(result, null, 2);
         resultContainer.appendChild(resultDiv);
-    }
+    };
 
     $$('has-product').onclick = monetizationCheck(
         () => $$('has-product-id').value,
@@ -268,4 +270,14 @@ document.addEventListener("DOMContentLoaded", function() {
         () => $$('has-subscription-id').value,
         $$('has-subscription-container'),
         'hasSubscription');
+
+    $$('has-access').onclick = async (e) => {
+        const userData = await identity.getUser();
+
+        monetizationCheck(
+            () => $$('has-access-id').value,
+            $$('has-access-container'),
+            'hasAccess',
+            userData.uuid)(e);
+    }
 });
