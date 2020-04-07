@@ -274,7 +274,23 @@ document.addEventListener("DOMContentLoaded", function() {
         const resultDiv = document.createElement('pre');
         resultDiv.innerText = JSON.stringify(result, null, 2);
         resultContainer.appendChild(resultDiv);
-    }
+    };
+
+    const monetizationCheckHasAccess = async (e) => {
+        try {
+            e.preventDefault();
+            const userData = await identity.getUser();
+            const productId = $$('has-access-id').value;
+            const result = await monetization.hasAccess(productId.split(','), userData.uuid);
+            const resultDiv = document.createElement('pre');
+            resultDiv.innerText = JSON.stringify(result, null, 2);
+            $$('has-access-container').appendChild(resultDiv);
+        } catch (err) {
+            const errorDiv = document.createElement('pre');
+            errorDiv.innerHTML = `Error: ${err}`;
+            $$('has-access-container').appendChild(errorDiv);
+        }
+    };
 
     $$('has-product').onclick = monetizationCheck(
         () => $$('has-product-id').value,
@@ -285,4 +301,6 @@ document.addEventListener("DOMContentLoaded", function() {
         () => $$('has-subscription-id').value,
         $$('has-subscription-container'),
         'hasSubscription');
+
+    $$('has-access').onclick = monetizationCheckHasAccess;
 });
