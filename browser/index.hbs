@@ -51,8 +51,18 @@
         <br/>
         using
         <label><input type="radio" value="" name="login-method" checked>Credentials</label>
-        <label><input type="radio" value="otp-email" name="login-method">Email</label>
-        <label><input type="radio" value="otp-sms" name="login-method">SMS</label>
+        <fieldset>
+            <legend>Passwordless</legend>
+            <label><input type="radio" value="otp-email" name="login-method">Email</label>
+            <label><input type="radio" value="otp-sms" name="login-method">SMS</label>
+        </fieldset>
+        <fieldset>
+            <legend>MFAs</legend>
+            <label><input type="radio" value="otp" name="login-method">Code generator</label>
+            <label><input type="radio" value="sms" name="login-method">SMS code</label>
+            <label><input type="radio" value="mfa" name="login-method">Multifactor auth (any)</label>
+            <label><input type="radio" value="otp sms" name="login-method">Multifactor auth (both SMS & Code)</label>
+        </fieldset>
         <br/>
         <hr/>
         <p>
