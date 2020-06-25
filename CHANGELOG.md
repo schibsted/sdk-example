@@ -1,4 +1,10 @@
 # Changelog
+## v4.9.0
+* PoC two factor authentication
+
+## v4.8.0
+* Upgraded to account-sdk-browser v3.3.0
+* Add has access support
 
 ## v4.7.1
 * Use simplified login widget from browser sdk
