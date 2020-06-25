@@ -230,42 +230,6 @@ document.addEventListener("DOMContentLoaded", function() {
         const preferPopup = document.getElementById('use-popup').checked;
         const state = generateState(preferPopup);
 
-        function isStr(value) {
-            return typeof value === 'string';
-        }
-
-
-        function isStrIn(value, possibilities, caseSensitive = false) {
-            const _isSameStrCaseInsensitive = str =>
-                isStr(str) && value.toUpperCase() === str.toUpperCase();
-            if (!(isStr(value) && Array.isArray(possibilities))) {
-                return false;
-            }
-            if (caseSensitive) {
-                return possibilities.indexOf(value) !== -1;
-            }
-            return possibilities.some(_isSameStrCaseInsensitive);
-        }
-
-        function isUrl(value, ...mandatoryFields) {
-            try {
-                const parsedUrl = new URL(value);
-                return mandatoryFields.every(f => parsedUrl[f]);
-            } catch (urlParsingError) {
-                return false;
-            }
-        }
-
-        function isNonEmptyString(value) {
-            return typeof value === 'string' && value.length > 0;
-        }
-
-        function assert(condition, message = 'Assertion failed') {
-            if (!condition) {
-                throw new Error(message);
-            }
-        }
-
         Identity.prototype.loginUrl = function({
             state,
             acrValues,
@@ -291,12 +255,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 teaser = arguments[7] || teaser;
                 maxAge = isNaN(arguments[8]) ? maxAge : arguments[8];
             }
-            assert(!acrValues || isStrIn(acrValues, ['', 'otp-email', 'otp-sms', 'mfa', 'otp', 'sms', 'otp sms'], true),
-                `The acrValues parameter is not acceptable: ${acrValues}`);
-            assert(isUrl(redirectUri),
-                `loginUrl(): redirectUri must be a valid url but is ${redirectUri}`);
-            assert(isNonEmptyString(state),
-                `the state parameter should be a non empty string but it is ${state}`);
+
             if (newFlow) {
                 return this._oauthService.makeUrl('oauth/authorize', {
                     response_type: 'code',
