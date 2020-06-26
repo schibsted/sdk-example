@@ -34,7 +34,7 @@ it should work:
 1. Run `npm install` so that `package-lock.json` is also up-to-date
 1. Update `CHANGELOG.md` with relevant changes, in sections **New features**, **Fixes**
 1. Commit those changes, push a PR and land it
-1. Create a [new release](https://github.com/schibsted/account-sdk-browser/releases/new) and name it
+1. Create a release and name it
    according to the version number you just placed in `package.json`
 1. Public Travis should be triggered
 1. **WISHY-WASHY stuff here**: When public Travis succeeds, it should do a curl-POST to internal
