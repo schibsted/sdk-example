@@ -50,16 +50,11 @@
         <label><input type="checkbox" id="one-step-login"> One step login</label>
         <br/>
         using
-        <label><input type="radio" value="" name="login-method" checked>Credentials</label>
-        <fieldset>
-            <legend>Passwordless</legend>
-            <label><input type="radio" value="otp-email" name="login-method">Email</label>
-            <label><input type="radio" value="otp-sms" name="login-method">SMS</label>
-        </fieldset>
         <fieldset>
             <legend>Authentication methods</legend>
-            <label><input type="radio" value="otp" name="login-method">Code generator</label>
-            <label><input type="radio" value="sms" name="login-method">SMS code</label>
+            <label><input type="checkbox" value="password" name="login-method">Force password</label>
+            <label><input type="checkbox" value="otp" name="login-method">Code generator</label>
+            <label><input type="checkbox" value="sms" name="login-method">SMS code</label>
         </fieldset>
         <br/>
         <hr/>
