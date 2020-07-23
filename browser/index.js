@@ -229,6 +229,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const preferPopup = document.getElementById('use-popup').checked;
         const state = generateState(preferPopup);
+        const getAcrValues = () => {
+            const checkedAcr = document.querySelectorAll('[name=login-method]:checked');
+            const acrs = [];
+            for (let acr of checkedAcr) {
+                acrs.push(acr.value);
+            }
+            return acrs.join(' ');
+        };
 
         Identity.prototype.loginUrl = function({
             state,
@@ -270,7 +278,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     max_age: maxAge,
                     locale,
                     one_step_login: oneStepLogin || '',
-                    prompt: this.siteSpecificLogout ? 'select_account' : ''
+                    prompt: this.siteSpecificLogout && !acrValues ? 'select_account' : ''
                 });
             } else {
                 // acrValues do not work with the old flows
@@ -290,7 +298,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const popup = identity.login({
             state,
             scope: 'openid profile',
-            acrValues: document.querySelector('input[type=radio][name=login-method]:checked').value,
+            acrValues: getAcrValues(),
             preferPopup,
             newFlow: document.getElementById('use-new-flow').checked,
             loginHint: document.getElementById('preferred-email').value,
