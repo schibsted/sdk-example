@@ -238,63 +238,6 @@ document.addEventListener("DOMContentLoaded", function() {
             return acrs.join(' ');
         };
 
-        Identity.prototype.loginUrl = function({
-            state,
-            acrValues,
-            scope = 'openid',
-            redirectUri = this.redirectUri,
-            newFlow = true,
-            loginHint = '',
-            tag = '',
-            teaser = '',
-            maxAge = '',
-            locale = '',
-            oneStepLogin = false
-        }) {
-            if (typeof arguments[0] !== 'object') {
-                // backward compatibility
-                state = arguments[0];
-                acrValues = arguments[1];
-                scope = arguments[2] || scope;
-                redirectUri = arguments[3] || redirectUri;
-                newFlow = typeof arguments[4] === 'boolean' ? arguments[4] : newFlow;
-                loginHint = arguments[5] || loginHint;
-                tag = arguments[6] || tag;
-                teaser = arguments[7] || teaser;
-                maxAge = isNaN(arguments[8]) ? maxAge : arguments[8];
-            }
-
-            if (newFlow) {
-                return this._oauthService.makeUrl('oauth/authorize', {
-                    response_type: 'code',
-                    'new-flow': true,
-                    redirect_uri: redirectUri,
-                    scope,
-                    state,
-                    acr_values: acrValues,
-                    login_hint: loginHint,
-                    tag,
-                    teaser,
-                    max_age: maxAge,
-                    locale,
-                    one_step_login: oneStepLogin || '',
-                    prompt: this.siteSpecificLogout && !acrValues ? 'select_account' : ''
-                });
-            } else {
-                // acrValues do not work with the old flows
-                return this._spid.makeUrl('flow/login', {
-                    response_type: 'code',
-                    redirect_uri: redirectUri,
-                    scope,
-                    state,
-                    email: loginHint,
-                    tag,
-                    teaser,
-                    locale
-                });
-            }
-        };
-
         const popup = identity.login({
             state,
             scope: 'openid profile',

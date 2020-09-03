@@ -1,4 +1,6 @@
 # Changelog
+## v5.0.0
+* Use account-sdk-browser in version 4.0.0
 ## v4.9.0
 * PoC two factor authentication
 

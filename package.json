@@ -1,7 +1,7 @@
 {
   "name": "sdk-example",
   "description": "An example website that uses Schibsted's new browser SDK",
-  "version": "4.9.1",
+  "version": "5.0.0",
   "license": "MIT",
   "main": "server.js",
   "repository": {
@@ -14,7 +14,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@schibsted/account-sdk-browser": "^3.3.0",
+    "@schibsted/account-sdk-browser": "^4.0.0",
     "cookie-parser": "^1.4.4",
     "dotenv": "^5.0.0",
     "express": "^4.17.1",
