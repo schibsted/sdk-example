@@ -323,13 +323,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
     Identity.prototype.passwordlessLogin = async function (email) {
         const client_sdrn = `sdrn:${NAMESPACE[this.env]}:client:${this.clientId}`;
-        const { passwordless_token } = await fetch(`${this._sessionDomain}passwordless/start`, {
+        const response = await fetch(`${this._sessionDomain}/passwordless/start`, {
             method: 'POST',
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            mode: 'no-cors',
+            mode: 'cors',
             body: new URLSearchParams(
                 {
                     email,
@@ -342,14 +342,16 @@ document.addEventListener("DOMContentLoaded", function() {
             )
         });
 
+        const { passwordless_token } = await response.json();
+
         return async (code) => {
-            const { redirect_url } = await fetch(`${this._sessionDomain}passwordless/verify`, {
+            const response = await fetch(`${this._sessionDomain}/passwordless/verify`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                mode: 'no-cors',
+                mode: 'cors',
                 body: new URLSearchParams(
                     {
                         passwordless_token,
@@ -359,6 +361,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 ),
             });
 
+            const { redirect_url } = await response.json();
             if (redirect_url) {
                 window.location = redirect_url;
             }
