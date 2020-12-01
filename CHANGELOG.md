@@ -1,4 +1,7 @@
 # Changelog
+## v5.2.0
+* Add `/.well-known/apple-app-site-association`for testing iOS SDK Example app.
+
 ## v5.0.0
 * Use account-sdk-browser in version 4.0.0
 ## v4.9.0
