@@ -43,4 +43,5 @@ config.alternativeClient.publisher = getenv('ALTERNATIVE_CLIENT_PAYMENT_PUBLISHE
 config.alternativeClient.redirectUri = getenv('ALTERNATIVE_CLIENT_REDIRECT_URI', '');
 
 config.iosAppIds = getenv('IOS_APP_IDS', '').split(',');
+config.androidApps = getenv('ANDROID_APPS', '').split(',');
 module.exports = config;
