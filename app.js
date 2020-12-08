@@ -109,8 +109,27 @@ app.get('/logout', (req, res) => {
 });
 
 app.get('/.well-known/apple-app-site-association', (_, res) => {
-    if (config.appId) {
-        res.json({"applinks":{"details":[{"appIDs":[config.appId],"components":[{"/":"/ios_app_login/*"}]}]}})
+    if (config.iosAppIds) {
+        res.json({'applinks':{'details':[{'appIDs':config.iosAppIds,'components':[{'/':'/ios_app_login/*'}]}]}})
+    } else {
+        res.end();
+    }
+});
+
+app.get('/.well-known/assetlinks.json', (_, res) => {
+    if (config.androidApps) {
+        const associations = config.androidApps.map(appConfig => {
+            let [packageName, certFingerprint] = appConfig.split('=');
+            return {
+                'relation': ['delegate_permission/common.handle_all_urls'],
+                'target': {
+                    'namespace': 'android_app',
+                    'package_name': packageName,
+                    'sha256_cert_fingerprints': [certFingerprint]
+                }
+            };
+        });
+        res.json(associations)
     } else {
         res.end();
     }
