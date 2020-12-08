@@ -1,6 +1,10 @@
 # Changelog
+
+## v5.3.0
+* Add `/.well-known/assetlinks.json` for testing Android SDK Example app.
+
 ## v5.2.0
-* Add `/.well-known/apple-app-site-association`for testing iOS SDK Example app.
+* Add `/.well-known/apple-app-site-association` for testing iOS SDK Example app.
 
 ## v5.0.0
 * Use account-sdk-browser in version 4.0.0
