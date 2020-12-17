@@ -1,5 +1,8 @@
 # Changelog
 
+## v5.4.0
+* Use account-sdk-browser in version 4.3.0
+
 ## v5.3.0
 * Add `/.well-known/assetlinks.json` for testing Android SDK Example app.
 
