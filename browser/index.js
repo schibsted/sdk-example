@@ -334,7 +334,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 {
                     email,
                     client_sdrn,
-                    scope: 'openid',
+                    scope: 'openid profile',
                     redirect_uri: this.redirectUri,
                     response_type: 'code',
                     state: generateState(),
