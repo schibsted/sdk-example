@@ -44,6 +44,15 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.reload();
     });
 
+    const NAMESPACE = {
+        LOCAL: 'id.localhost',
+        DEV: 'schibsted.com',
+        PRE: 'schibsted.com',
+        PRO: 'schibsted.com',
+        PRO_NO: 'spid.no',
+        PRO_FI: 'schibsted.fi',
+    };
+
     /**
      * Checks if the user is logged in to SSO and updates the page accordingly
      * @return {void}
@@ -311,4 +320,62 @@ document.addEventListener("DOMContentLoaded", function() {
         'hasSubscription');
 
     $$('has-access').onclick = monetizationCheckHasAccess;
+
+    Identity.prototype.passwordlessLogin = async function (email) {
+        const client_sdrn = `sdrn:${NAMESPACE[this.env]}:client:${this.clientId}`;
+        const response = await fetch(`${this._sessionDomain}/passwordless/start`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            mode: 'cors',
+            body: new URLSearchParams(
+                {
+                    email,
+                    client_sdrn,
+                    scope: 'openid profile',
+                    redirect_uri: this.redirectUri,
+                    response_type: 'code',
+                    state: generateState(),
+                }
+            )
+        });
+
+        const { passwordless_token } = await response.json();
+
+        return async (code) => {
+            const response = await fetch(`${this._sessionDomain}/passwordless/verify`, {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                mode: 'cors',
+                body: new URLSearchParams(
+                    {
+                        passwordless_token,
+                        client_sdrn,
+                        code,
+                    }
+                ),
+            });
+
+            const { redirect_url } = await response.json();
+            if (redirect_url) {
+                window.location = redirect_url;
+            }
+        };
+    };
+
+    const startPasswordless = async () => {
+        const submitCode = await identity
+            .passwordlessLogin($$('passwordless-email').value);
+        $$('passwordless-code').focus();
+        $$('submit-passwordless-code').onclick = () => {
+            submitCode($$('passwordless-code').value);
+        }
+    };
+
+    $$('submit-passwordless-email').onclick = startPasswordless;
 });
