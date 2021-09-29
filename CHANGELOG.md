@@ -1,5 +1,8 @@
 # Changelog
 
+## v5.6.0
+* Use account-sdk-browser in version 4.5.0
+
 ## v5.5.0
 * Add new passwordless showroom.
 
