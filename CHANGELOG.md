@@ -1,5 +1,8 @@
 # Changelog
 
+## v5.7.0
+* Bump node version to 14
+
 ## v5.6.0
 * Use account-sdk-browser in version 4.5.0
 
