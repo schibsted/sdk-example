@@ -23,7 +23,7 @@
     "hbs": "^4.1.1",
     "helmet": "^3.21.2",
     "jsonwebtoken": "^8.5.1",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.7",
     "passport": "^0.4.0",
     "passport-oauth2": "^1.5.0",
     "passport-oauth2-middleware": "^1.0.3",
