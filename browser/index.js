@@ -223,6 +223,7 @@ document.addEventListener("DOMContentLoaded", function() {
     isLoggedInToSSO();
     isLoggedInToMerchant();
     isConnected();
+    initializeOnlyOneCheckboxChosen('bankId');
 
     function generateState(preferPopup = false) {
         const char = () => Math.floor((Math.random() * (122 - 97)) + 97);
@@ -231,6 +232,20 @@ document.addEventListener("DOMContentLoaded", function() {
             popup: preferPopup,
         };
         return btoa(JSON.stringify(stateObj));
+    }
+
+    function initializeOnlyOneCheckboxChosen(name) {
+        document
+            .querySelectorAll('input[type=checkbox][data-only-one-chosen='+name+']')
+            .forEach((changedCheckbox, key, parent) => {
+                changedCheckbox.addEventListener('change', () => {
+                    parent.forEach((checkbox) => {
+                        if (checkbox !== changedCheckbox) {
+                            checkbox.checked = false
+                        }
+                    });
+                })
+            })
     }
 
     function login(e) {

@@ -55,6 +55,12 @@
             <label><input type="checkbox" value="password" name="login-method">Force password</label>
             <label><input type="checkbox" value="otp" name="login-method">Code generator</label>
             <label><input type="checkbox" value="sms" name="login-method">SMS code</label>
+            {{#isNotSpidProd}}
+                <label><input type="checkbox" value="eid-no" name="login-method" data-only-one-chosen="bankId">BankID NO</label>
+                <label><input type="checkbox" value="eid-se" name="login-method" data-only-one-chosen="bankId">BankID SE</label>
+            {{else}}
+                <label><input type="checkbox" value="eid" name="login-method">BankID</label>
+            {{/isNotSpidProd}}
         </fieldset>
         <br/>
         <hr/>
