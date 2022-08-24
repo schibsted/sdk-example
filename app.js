@@ -10,12 +10,17 @@ const pkgJson = require('./package');
 const asyncMW = require('./asyncMW');
 const filterExt = require('./filterExt');
 const oauth = require('./oauth');
+const hbs = require('hbs');
 
 const app = express();
 
 app.set('views', `${__dirname}/browser`);
 // @see https://github.com/pillarjs/hbs
 app.set('view engine', 'hbs');
+
+hbs.registerHelper(`isNotSpidProd`, function (opts) {
+    return ['DEV','PRE'].includes(config.spidEnv) ? opts.fn(this) : opts.inverse(this)
+});
 
 app.use(helmet());
 
