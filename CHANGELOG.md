@@ -1,5 +1,9 @@
 # Changelog
 
+## v5.8.0
+* Support for norwegian and swedish BankID
+* Use account-sdk-browse in 4.6.0
+
 ## v5.7.0
 * Bump node version to 14
 
