@@ -1,5 +1,8 @@
 # Changelog
 
+## v5.9.0
+* Show bankID only for production ENV where it is actually active and we support it
+
 ## v5.8.0
 * Support for norwegian and swedish BankID
 * Use account-sdk-browse in 4.6.0
