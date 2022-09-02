@@ -58,9 +58,10 @@
             {{#isNotSpidProd}}
                 <label><input type="checkbox" value="eid-no" name="login-method" data-only-one-chosen="bankId">BankID NO</label>
                 <label><input type="checkbox" value="eid-se" name="login-method" data-only-one-chosen="bankId">BankID SE</label>
-            {{else}}
-                <label><input type="checkbox" value="eid" name="login-method">BankID</label>
             {{/isNotSpidProd}}
+            {{#isSpidProdWithActiveBankID}}
+                <label><input type="checkbox" value="eid" name="login-method">BankID</label>
+            {{/isSpidProdWithActiveBankID}}
         </fieldset>
         <br/>
         <hr/>

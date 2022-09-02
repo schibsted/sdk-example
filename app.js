@@ -22,6 +22,10 @@ hbs.registerHelper(`isNotSpidProd`, function (opts) {
     return ['DEV','PRE'].includes(config.spidEnv) ? opts.fn(this) : opts.inverse(this)
 });
 
+hbs.registerHelper(`isSpidProdWithActiveBankID`, function (opts) {
+    return ['PRO','PRO_NO'].includes(config.spidEnv) ? opts.fn(this) : opts.inverse(this)
+});
+
 app.use(helmet());
 
 app.get('/healthcheck', (req, res) => res.status(200).end());
