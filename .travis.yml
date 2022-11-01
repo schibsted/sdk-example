@@ -9,6 +9,7 @@ install: npm install
 script:
   - npm run lint
   - npm run build
+  - ./scripts/internal_travis_trigger.sh
 deploy:
   - provider: script
     script: ./scripts/internal_travis_trigger.sh
