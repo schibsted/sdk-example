@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This is a demonstration of how a client can use the Schibsted Account login flows. You can see it
+This is NOT a demonstration of how a client can use the Schibsted Account login flows. You can see it
 live at:
 
 * [https://pro.sdk-example.com](https://pro.sdk-example.com) (for development)
