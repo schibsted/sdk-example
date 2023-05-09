@@ -60,12 +60,9 @@
                 <label><input type="checkbox" value="eid-se" name="login-method" data-only-one-chosen="bankId">BankID SE</label>
                 <label><input type="checkbox" value="eid-fi" name="login-method" data-only-one-chosen="bankId">BankID FI</label>
             {{/isNotSpidProd}}
-            {{#isSpidProdWithActiveBankIdNo}}
-                <label><input type="checkbox" value="eid-pro-no" name="login-method">BankID NO</label>
-            {{/isSpidProdWithActiveBankIdNo}}
-            {{#isSpidProdWithActiveBankIdFi}}
-                <label><input type="checkbox" value="eid-pro-fi" name="login-method">BankID FI</label>
-            {{/isSpidProdWithActiveBankIdFi}}
+            {{#isSpidProdWithActiveBankId}}
+                <label><input type="checkbox" value="eid" name="login-method">BankID</label>
+            {{/isSpidProdWithActiveBankId}}
         </fieldset>
         <br/>
         <hr/>

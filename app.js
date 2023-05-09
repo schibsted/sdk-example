@@ -22,12 +22,8 @@ hbs.registerHelper(`isNotSpidProd`, function (opts) {
     return ['DEV','PRE'].includes(config.spidEnv) ? opts.fn(this) : opts.inverse(this)
 });
 
-hbs.registerHelper(`isSpidProdWithActiveBankIdNo`, function (opts) {
-    return ['PRO','PRO_NO'].includes(config.spidEnv) ? opts.fn(this) : opts.inverse(this)
-});
-
-hbs.registerHelper(`isSpidProdWithActiveBankIdFi`, function (opts) {
-    return ['PRO','PRO_FI'].includes(config.spidEnv) ? opts.fn(this) : opts.inverse(this)
+hbs.registerHelper(`isSpidProdWithActiveBankId`, function (opts) {
+    return ['PRO','PRO_NO','PRO_FI','PRO_SE'].includes(config.spidEnv) ? opts.fn(this) : opts.inverse(this)
 });
 
 app.use(helmet());
