@@ -27,8 +27,7 @@ Take a quick look at its browser code in [index.js](./browser/index.js) and its 
    head start you can just copy a template that's already included in the repo (run: `cp
    .env-template .env` and fill in the blanks. Take a look at [.env-template](./.env-template) to
    see what is needed.
-1. Run `npm run export NODE_OPTIONS=--openssl-legacy-provider && build`
-1. Then do a `source .env && npm start`.
+1. Then do a `source .env && npm start` or `npm run dev`.
 
 ## VSCode batteries included
 

@@ -10,7 +10,7 @@
   },
   "scripts": {
     "build": "./build.sh",
-    "dev": "./watch.sh && nodemon -w . -w browser -w dist server.js",
+    "dev": "export NODE_OPTIONS=--openssl-legacy-provider && ./watch.sh && nodemon -w . -w browser -w dist server.js",
     "lint": "eslint ."
   },
   "dependencies": {
