@@ -9,7 +9,7 @@
     "url": "https://github.schibsted.io/spt-identity/sdk-example.com"
   },
   "scripts": {
-    "build": "export NODE_OPTIONS=--openssl-legacy-provider && ./build.sh",
+    "build": "./build.sh",
     "dev": "./watch.sh && nodemon -w . -w browser -w dist server.js",
     "lint": "eslint ."
   },

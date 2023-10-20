@@ -22,12 +22,12 @@ Take a quick look at its browser code in [index.js](./browser/index.js) and its 
 
 ## Configuring the server
 
-1. You need a few configs obtained from self service *in the right environment* in order to get
+1. You need a few configs obtained from Self-service *in the right environment* in order to get
    started. Set your Identity client credentials in the `.env` file in the root folder. To get a
    head start you can just copy a template that's already included in the repo (run: `cp
    .env-template .env` and fill in the blanks. Take a look at [.env-template](./.env-template) to
    see what is needed.
-1. Run `npm run build`
+1. Run `npm run export NODE_OPTIONS=--openssl-legacy-provider && build`
 1. Then do a `source .env && npm start`.
 
 ## VSCode batteries included
