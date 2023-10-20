@@ -27,6 +27,7 @@ Take a quick look at its browser code in [index.js](./browser/index.js) and its 
    head start you can just copy a template that's already included in the repo (run: `cp
    .env-template .env` and fill in the blanks. Take a look at [.env-template](./.env-template) to
    see what is needed.
+1. Run `npm run build`
 1. Then do a `source .env && npm start`.
 
 ## VSCode batteries included
