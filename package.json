@@ -10,11 +10,11 @@
   },
   "scripts": {
     "build": "./build.sh",
-    "dev": "./watch.sh && nodemon -w . -w browser -w dist server.js",
+    "dev": "export NODE_OPTIONS=--openssl-legacy-provider && ./watch.sh && nodemon -w . -w browser -w dist server.js",
     "lint": "eslint ."
   },
   "dependencies": {
-    "@schibsted/account-sdk-browser": "^4.5.0",
+    "@schibsted/account-sdk-browser": "^4.8.1",
     "cookie-parser": "^1.4.4",
     "dotenv": "^5.0.0",
     "express": "^4.17.1",
