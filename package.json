@@ -1,7 +1,7 @@
 {
   "name": "sdk-example",
   "description": "An example website that uses Schibsted's new browser SDK",
-  "version": "5.9.2",
+  "version": "5.9.3",
   "license": "MIT",
   "main": "server.js",
   "repository": {
