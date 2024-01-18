@@ -2,8 +2,8 @@ const { Strategy } = require('passport-oauth2-middleware');
 const Introspection = require('token-introspection');
 const OAuth2Strategy = require('passport-oauth2');
 const passport = require('passport');
-const request = require('request-promise');
 const jwt = require('jsonwebtoken');
+const axios = require('axios');
 
 const config = require('./config');
 
@@ -52,8 +52,12 @@ function initialize(app) {
     oauthStrategy.userProfile = async (token, done) => {
         try {
             const opts = { headers: { authorization: `Bearer ${token}` } };
-            const userinfo = JSON.parse(await request.get(`${config.oauthBase}oauth/userinfo`, opts));
-            done(null, { userinfo });
+            await axios.get(`${config.oauthBase}oauth/userinfo`, opts).then(
+                function (response) {
+                    console.log(response.data);
+                    const userinfo = response.data;
+                    done(null, { userinfo });
+            });
         } catch (e) {
             done(e);
         }
