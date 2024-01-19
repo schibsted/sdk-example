@@ -1,7 +1,7 @@
 #########################################################
 #                                                       #
 # Schibsted SDK Example                                 #
-# Copyright (c) 2018 Schibsted Products & Technology AS #
+# Copyright (c) 2024 Schibsted Products & Technology AS #
 #                                                       #
 #########################################################
 
@@ -13,6 +13,10 @@ licenses are ignored):
 @schibsted/account-sdk-browser
   LICENSE: MIT,
            https://github.com/schibsted/account-sdk-browser/blob/master/README.md#license
+
+axios
+  LICENSE: MIT,
+           https://github.com/axios/axios/blob/v1.x/LICENSE
 
 cookie-parser
   LICENSE: MIT,
@@ -57,14 +61,6 @@ passport-oauth2
 passport-oauth2-middleware
   LICENSE: ISC,
            https://github.com/artema/passport-oauth2-middleware/blob/bd0f34b50e255ba4290aefd4003f995ac5eda318/package.json#L21
-
-request
-  LICENSE: Apache-2.0,
-           https://github.com/request/request/blob/master/LICENSE
-
-request-promise
-  LICENSE: ISC,
-           https://github.com/request/request-promise/blob/master/LICENSE
 
 token-introspection
   LICENSE: MIT,
