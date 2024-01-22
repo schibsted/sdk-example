@@ -6,7 +6,7 @@ const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 
 const config = require('./config');
-const pkgJson = require('./package');
+const pkgJson = require('../package');
 const asyncMW = require('./asyncMW');
 const filterExt = require('./filterExt');
 const oauth = require('./oauth');
@@ -14,8 +14,7 @@ const hbs = require('hbs');
 
 const app = express();
 
-app.set('views', `${__dirname}/browser`);
-// @see https://github.com/pillarjs/hbs
+app.set('views', `${__dirname}/views`);
 app.set('view engine', 'hbs');
 
 hbs.registerHelper(`isNotSpidProd`, function (opts) {
@@ -144,8 +143,8 @@ app.get('/.well-known/assetlinks.json', (_, res) => {
     }
 });
 
-app.use('/browser', filterExt('css', 'ico'), express.static(`${__dirname}/browser`));
-app.get('/favicon.ico', (req, res) => res.redirect('/browser/favicon.ico'));
+app.use('/public', filterExt('css', 'ico'), express.static(`${__dirname}/../public`));
+app.get('/favicon.ico', (req, res) => res.redirect('/public/favicon.ico'));
 app.get('/apple-touch-icon-precomposed.png', (_, res) => res.status(404));
 app.get('/apple-touch-icon.png', (_, res) => res.status(404));
 app.use('/dist', express.static('dist'));

@@ -57,7 +57,7 @@ function initialize(app) {
                     console.log(response.data);
                     const userinfo = response.data;
                     done(null, { userinfo });
-            });
+                });
         } catch (e) {
             done(e);
         }

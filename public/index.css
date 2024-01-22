@@ -59,7 +59,7 @@ button:hover, button:active {
   animation-name: fadeIn;
   animation-duration: 0.4s
 }
-  
+
 .simplified-login-content {
   display: none;
   position: fixed;
@@ -101,7 +101,7 @@ button:hover, button:active {
 }
 
 @keyframes fadeIn {
-  from {opacity: 0} 
+  from {opacity: 0}
   to {opacity: 1}
 }
 
@@ -113,4 +113,3 @@ button:hover, button:active {
 @keyframes spin {
   to { -webkit-transform: rotate(360deg); }
 }
-
