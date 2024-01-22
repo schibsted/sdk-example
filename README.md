@@ -7,29 +7,34 @@
 This is a demonstration of how a client can use the Schibsted Account login flows. You can see it
 live at:
 
-* [https://pro.sdk-example.com](https://pro.sdk-example.com) (for development)
+* [https://pro.sdk-example.com](https://pro.sdk-example.com)
+* [https://pre.sdk-example.com](https://pre.sdk-example.com)
+* [https://dev.sdk-example.com](https://dev.sdk-example.com)
 
-Its main intention is *code as documentation* and is intentionally simplified to demo the most
-important steps for using the [SDK](https://github.com/schibsted/account-sdk-browser).
+The main intention of this code is to have simplified demo of the most important features of [SDK](https://github.com/schibsted/account-sdk-browser)
 
-Take a quick look at its browser code in [index.js](./browser/index.js) and its server code in
-[app.js](./app.js).
-
-## Installation
-
-1. Clone this repo
-1. Run `npm install`.
+## How to run locally?
+1. Clone this repo.
+1. Install dependencies `npm run install`.
+1. And run `npm run dev` script.
 
 ## Configuring the server
 
 1. You need a few configs obtained from Self-service *in the right environment* in order to get
    started. Set your Identity client credentials in the `.env` file in the root folder. To get a
    head start you can just copy a template that's already included in the repo (run: `cp
-   .env-template .env` and fill in the blanks. Take a look at [.env-template](./.env-template) to
+   .env-example .env` and fill in the blanks. Take a look at [.env-example](./.env-example) to
    see what is needed.
 1. Then do a `source .env && npm start` or `npm run dev`.
 
-## VSCode batteries included
+## Repo structure
+To make this Example app running, simple backend application is exposed.
 
-If you're using VS Core it's super easy. Just choose the debug menu and launch "SDK-Example-DEV".
-It's automatically load the configuration from the `.env` file you created previously.
+### Backend
+Main directory for backend application is placed directory
+```
+/server
+```
+
+### Account-sdk-browser usage
+All browser code is placed in `/public` directory, and usage of SDK can be found in this file [index.js](public/index.js)

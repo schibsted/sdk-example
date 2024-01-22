@@ -1,10 +1,11 @@
 .dockerignore
 .editorconfig
-.env-template
-.eslintrc.yml
+.env-example
+.eslintrc.js
 .git
 .gitignore
 .travis.yml
 .vscode
+.idea
 docker
 README.md

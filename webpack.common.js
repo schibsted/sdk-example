@@ -1,7 +1,7 @@
 const path = require("path");
+const TerserPlugin = require('terser-webpack-plugin');
 
-const commonRules = {
-    mode: 'production',
+module.exports = {
     module: {
         rules: [
             {
@@ -11,23 +11,17 @@ const commonRules = {
             }
         ],
     },
-    devtool: 'source-map',
-    optimization: {
-        minimize: true,
-    },
     plugins: [],
-}
-
-const cjsConfig = {
     entry: {
-        index: './browser/index.js',
-        safepage: './browser/safepage.js',
+        index: './public/index.js',
+        safepage: './public/safepage.js',
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].min.js',
+        clean: true,
     },
-    ...commonRules,
+    optimization: {
+        minimizer: [new TerserPlugin({ extractComments: false })],
+    },
 };
-
-module.exports = [cjsConfig]
