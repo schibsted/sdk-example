@@ -1,0 +1,35 @@
+name: Deploy sdk-example
+
+on:
+    push:
+        tags: '*'
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        name: Run js tests
+        steps:
+            -   name: Checkout code
+                uses: actions/checkout@v3
+            -   name: Setup node
+                uses: actions/setup-node@v3
+                with:
+                    node-version-file: ".nvmrc"
+                    cache: "npm"
+            -   name: Install dependencies
+                run: npm ci
+            -   name: Run tests
+                run: |
+                    npm run lint
+                    npm run build
+    deploy:
+        needs: build
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Setup node
+                uses: actions/setup-node@v3
+                with:
+                    node-version-file: ".nvmrc"
+                    cache: "npm"
+            -   name: Run script
+                default: ./scripts/internal_travis_trigger.sh
