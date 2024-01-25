@@ -31,4 +31,4 @@ jobs:
             -   name: Run script
                 default: ./scripts/internal_travis_trigger.sh
                 env:
-                            INTERNAL_TRAVIS_TOKEN: ${{secrets.INTERNAL_TRAVIS_TOKEN}}
+                    INTERNAL_TRAVIS_TOKEN: ${{secrets.INTERNAL_TRAVIS_TOKEN}}
