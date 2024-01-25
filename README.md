@@ -1,6 +1,6 @@
 # SDK Example
 
-[![Build Status](https://github.com/schibsted/sdk-example/actions/workflows/pr.yml/badge.svg?branch=master)](https://github.com/schibsted/sdk-example)
+![Build Status](https://github.com/schibsted/sdk-example/actions/workflows/pr.yml/badge.svg)
 
 ## Introduction
 
