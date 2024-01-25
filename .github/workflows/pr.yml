@@ -1,4 +1,4 @@
-name: Test Pull Request
+name: Test pull request
 
 on:
     pull_request:
@@ -27,5 +27,3 @@ jobs:
                 run: |
                     npm run lint
                     npm run build
-            -   name: Upload coverage to Codecov
-                uses: codecov/codecov-action@v3
