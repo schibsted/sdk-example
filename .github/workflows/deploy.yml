@@ -26,10 +26,7 @@ jobs:
         needs: build
         runs-on: ubuntu-latest
         steps:
-            -   name: Setup node
-                uses: actions/setup-node@v3
-                with:
-                    node-version-file: ".nvmrc"
-                    cache: "npm"
+            -   name: Checkout code
+                uses: actions/checkout@v3
             -   name: Run script
                 default: ./scripts/internal_travis_trigger.sh
