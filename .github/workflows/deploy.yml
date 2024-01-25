@@ -1,4 +1,4 @@
-name: Deploy sdk-example
+name: Trigger build
 
 on:
     push:
