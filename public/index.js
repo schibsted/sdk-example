@@ -31,7 +31,24 @@ document.addEventListener("DOMContentLoaded", function() {
         siteSpecificLogout,
     } = window.config;
     const redirectUri = `${window.location.origin}/safepage`;
-    const identity = new Identity({ clientId, sessionDomain, env: spidEnv, siteSpecificLogout, log: console.log, redirectUri });
+    const identity = new Identity({
+        clientId,
+        sessionDomain,
+        env: spidEnv,
+        siteSpecificLogout,
+        log: console.log,
+        redirectUri,
+        callbackBeforeRedirect:()=>{
+            console.log('Before redirect callback begin');
+
+            return new Promise((resolve)=>{
+                setTimeout(()=>{
+                    console.log('Before redirect callback resolved');
+                    resolve('ok!')
+                }, 2000)
+            })
+        }
+    });
     const payment = new Payment({ clientId, env: spidEnv, log: console.log, redirectUri, publisher: paymentPublisher });
     const monetization = new Monetization({ clientId, sessionDomain, env: spidEnv, log: console.log, redirectUri });
     Object.assign(window, { identity, payment, monetization });
