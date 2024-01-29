@@ -110,10 +110,11 @@ app.get('/introspect', asyncMW(async (req, res, next) => {
 }));
 
 app.get('/logout', (req, res) => {
-    req.logout();
-    // Destroy the session and any possible data we might have for the user
-    // @see https://www.npmjs.com/package/express-session#sessiondestroycallback
-    req.session.destroy(() => res.redirect('/'));
+    req.logout(() => {
+        // Destroy the session and any possible data we might have for the user
+        // @see https://www.npmjs.com/package/express-session#sessiondestroycallback
+        req.session.destroy(() => res.redirect('/'));
+    });
 });
 
 app.get('/.well-known/apple-app-site-association', (_, res) => {
