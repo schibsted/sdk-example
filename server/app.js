@@ -17,7 +17,6 @@ const { engine } =require('express-handlebars');
 
 const app = express();
 
-
 app.engine('.hbs', engine({
     extname: '.hbs',
     helpers: {
@@ -29,6 +28,7 @@ app.engine('.hbs', engine({
         }
     }
 }));
+
 app.set('view engine', '.hbs');
 app.set('views', `${__dirname}/views`);
 
@@ -52,7 +52,29 @@ oauth.initialize(app);
 
 
 app.get('/tailwind', asyncMW(async (req, res) => {
-    res.render('tailwind');
+    const data = { pkgJson, config };
+    if (req.isAuthenticated()) {
+        if (!req.user.userinfo) {
+            // We came from a purchase flow, and our token doesn't have the 'openid' scope. Let's
+            // try to redirect to /oauth to "quickly fetch" a token
+            return res.redirect('/oauth');
+        }
+        data.userInfo = req.user.userinfo;
+    }
+
+    res.render('tailwind',{
+        loginProperties:[
+            "Open in popup",
+            "Force one step login",
+            "Start new Flow"
+        ],
+        authenticationMethods:[
+            "Force password",
+            "Code generator",
+            "SMS code",
+        ],
+        ...data
+    });
 }));
 
 app.get('/', asyncMW(async (req, res) => {

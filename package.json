@@ -23,6 +23,7 @@
         "express": "^4.17.3",
         "express-handlebars": "^7.1.2",
         "express-session": "^1.17.3",
+        "flowbite": "^2.2.1",
         "getenv": "^1.0.0",
         "hbs": "^4.2.0",
         "helmet": "^3.23.3",

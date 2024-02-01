@@ -36,8 +36,12 @@
 <body class="text-blueGray-700 antialiased">
 <noscript>You need to enable JavaScript to run this app.</noscript>
 <div id="root">
-    {{> header }}
-    {{{body}}}
+    {{> nav }}
+    <div class="md:ml-64 bg-blueGray-50">
+        <div class="bg-pink-600 p-4 md:px-8 ">
+            {{{body}}}
+        </div>
+    </div>
     {{> footer }}
 </div>
 <script type="text/javascript">
