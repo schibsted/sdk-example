@@ -53,7 +53,7 @@ app.get('/', asyncMW(async (req, res) => {
         }
         data.userInfo = req.user.userinfo;
     }
-    res.render('index', data);
+    res.render('tailwind', data);
 }));
 
 app.get('/userinfo', (req, res) => {
