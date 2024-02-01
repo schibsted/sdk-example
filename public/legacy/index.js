@@ -1,8 +1,8 @@
-'use strict';
-
+/* eslint-disable */
 import 'regenerator-runtime/runtime';
 
 import { Identity, Payment, Monetization } from '@schibsted/account-sdk-browser';
+
 window.Identity = Identity; // To be able to play around with it in the console...
 window.Payment = Payment;
 window.Monetization = Monetization;
@@ -14,14 +14,14 @@ window.Monetization = Monetization;
 function logoutMerchant() {
     return fetch('/logout', { credentials: 'include' })
         .then(() => window.location.reload())
-        .catch(err => alert(`Failed to logout ${String(err)}`));
+        .catch((err) => alert(`Failed to logout ${String(err)}`));
 }
 
 function $$(klass) {
-    return document.getElementsByClassName(klass)[0]
+    return document.getElementsByClassName(klass)[0];
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener('DOMContentLoaded', () => {
     const {
         clientId,
         exampleProductId,
@@ -38,25 +38,29 @@ document.addEventListener("DOMContentLoaded", function() {
         siteSpecificLogout,
         log: console.log,
         redirectUri,
-        callbackBeforeRedirect:()=>{
+        callbackBeforeRedirect: () => {
             console.log('Before redirect callback begin');
 
-            return new Promise((resolve)=>{
-                setTimeout(()=>{
+            return new Promise((resolve) => {
+                setTimeout(() => {
                     console.log('Before redirect callback resolved');
-                    resolve('ok!')
-                }, 2000)
-            })
-        }
+                    resolve('ok!');
+                }, 2000);
+            });
+        },
     });
-    const payment = new Payment({ clientId, env: spidEnv, log: console.log, redirectUri, publisher: paymentPublisher });
-    const monetization = new Monetization({ clientId, sessionDomain, env: spidEnv, log: console.log, redirectUri });
+    const payment = new Payment({
+        clientId, env: spidEnv, log: console.log, redirectUri, publisher: paymentPublisher,
+    });
+    const monetization = new Monetization({
+        clientId, sessionDomain, env: spidEnv, log: console.log, redirectUri,
+    });
     Object.assign(window, { identity, payment, monetization });
 
     identity.on('login', () => console.log('User is logged in to SSO.'));
 
-    identity.on('logout', function () {
-        //Logged out from SSO. Need to cancel merchant session as well
+    identity.on('logout', () => {
+        // Logged out from SSO. Need to cancel merchant session as well
         console.log('User is logged out from SSO.');
         window.location.reload();
     });
@@ -84,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (img) {
                     const a = document.createElement('a');
                     a.href = identity.accountUrl();
-                    a.title = "Account page";
+                    a.title = 'Account page';
                     userInfo.removeChild(img);
                     a.appendChild(img);
                     userInfo.appendChild(a);
@@ -101,14 +105,13 @@ document.addEventListener("DOMContentLoaded", function() {
      */
     function isConnected() {
         identity.isConnected()
-            .then(con => {
+            .then((con) => {
                 const e = $$('user-is-connected-to-merchant');
                 e.textContent = (con ? 'Yes' : 'No');
                 e.removeAttribute('title');
             })
-            .catch(err => $$('user-is-connected-to-merchant').textContent = `Error: ${err}`);
+            .catch((err) => $$('user-is-connected-to-merchant').textContent = `Error: ${err}`);
     }
-
 
     /**
      * Gets the user information (given that they are logged in and connected)
@@ -116,8 +119,8 @@ document.addEventListener("DOMContentLoaded", function() {
      */
     function getUserSSO() {
         identity.getUser()
-            .then(user => $$('user-info-sso').textContent = JSON.stringify(user, undefined, 2))
-            .catch(err => $$('user-info-sso').textContent = `Error: ${err}`);
+            .then((user) => $$('user-info-sso').textContent = JSON.stringify(user, undefined, 2))
+            .catch((err) => $$('user-info-sso').textContent = `Error: ${err}`);
     }
 
     /**
@@ -142,9 +145,9 @@ document.addEventListener("DOMContentLoaded", function() {
         try {
             const response = await fetch('/introspect', { credentials: 'include' });
             const json = await response.json();
-            $$('token-introspection-result').textContent = JSON.stringify(json, undefined, 2)
+            $$('token-introspection-result').textContent = JSON.stringify(json, undefined, 2);
         } catch (err) {
-            $$('token-introspection-result').textContent = `Error: ${err}`
+            $$('token-introspection-result').textContent = `Error: ${err}`;
         }
     }
 
@@ -175,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return function buyPromoCodeProductOnClick(e) {
             const productId = e.target.parentNode.getElementsByClassName('product-id')[0].value;
             window.location = paymentInstance.purchasePromoCodeProductFlowUrl(productId, generateState());
-        }
+        };
     }
 
     /**
@@ -216,7 +219,7 @@ document.addEventListener("DOMContentLoaded", function() {
         $$('buy-promo-code-product-alternative-client').onclick = buyPromoCodeProduct(
             new Payment(
                 window.config.alternativeClient,
-            )
+            ),
         );
         $$('buy-promo-code-product-alternative-client-pay-now-login-after').onclick = (e) => {
             const payment = new Payment(
@@ -228,7 +231,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     code,
                     publisher: this.publisher,
                     state,
-                    redirect_uri: redirectUri
+                    redirect_uri: redirectUri,
                 });
             };
 
@@ -245,7 +248,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function generateState(preferPopup = false) {
         const char = () => Math.floor((Math.random() * (122 - 97)) + 97);
         const stateObj = {
-            id: Array.from({length: 20}, () => String.fromCharCode(char())).join(''),
+            id: Array.from({ length: 20 }, () => String.fromCharCode(char())).join(''),
             popup: preferPopup,
         };
         return btoa(JSON.stringify(stateObj));
@@ -253,16 +256,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function initializeOnlyOneCheckboxChosen(name) {
         document
-            .querySelectorAll('input[type=checkbox][data-only-one-chosen='+name+']')
+            .querySelectorAll(`input[type=checkbox][data-only-one-chosen=${name}]`)
             .forEach((changedCheckbox, key, parent) => {
                 changedCheckbox.addEventListener('change', () => {
                     parent.forEach((checkbox) => {
                         if (checkbox !== changedCheckbox) {
-                            checkbox.checked = false
+                            checkbox.checked = false;
                         }
                     });
-                })
-            })
+                });
+            });
     }
 
     function login(e) {
@@ -273,7 +276,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const getAcrValues = () => {
             const checkedAcr = document.querySelectorAll('[name=login-method]:checked');
             const acrs = [];
-            for (let acr of checkedAcr) {
+            for (const acr of checkedAcr) {
                 acrs.push(acr.value);
             }
             return acrs.join(' ');
@@ -289,7 +292,7 @@ document.addEventListener("DOMContentLoaded", function() {
             oneStepLogin: document.getElementById('one-step-login').checked,
         });
         if (popup) {
-            window.addEventListener("message", event => {
+            window.addEventListener('message', (event) => {
                 if (!(event.origin === window.location.origin || Object.is(event.source, popup))) {
                     return;
                 }
@@ -303,7 +306,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    Array.prototype.forEach.call(document.getElementsByClassName('login'), e => e.onclick = login);
+    Array.prototype.forEach.call(document.getElementsByClassName('login'), (e) => e.onclick = login);
 
     $$('logout-sso').onclick = function (e) {
         e.preventDefault();
@@ -344,12 +347,14 @@ document.addEventListener("DOMContentLoaded", function() {
     $$('has-product').onclick = monetizationCheck(
         () => $$('has-product-id').value,
         $$('has-product-container'),
-        'hasProduct');
+        'hasProduct',
+    );
 
     $$('has-subscription').onclick = monetizationCheck(
         () => $$('has-subscription-id').value,
         $$('has-subscription-container'),
-        'hasSubscription');
+        'hasSubscription',
+    );
 
     $$('has-access').onclick = monetizationCheckHasAccess;
 
@@ -359,7 +364,7 @@ document.addEventListener("DOMContentLoaded", function() {
             method: 'POST',
             credentials: 'include',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/x-www-form-urlencoded',
             },
             mode: 'cors',
             body: new URLSearchParams(
@@ -370,8 +375,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     redirect_uri: this.redirectUri,
                     response_type: 'code',
                     state: generateState(),
-                }
-            )
+                },
+            ),
         });
 
         const { passwordless_token } = await response.json();
@@ -389,7 +394,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         passwordless_token,
                         client_sdrn,
                         code,
-                    }
+                    },
                 ),
             });
 
@@ -406,7 +411,7 @@ document.addEventListener("DOMContentLoaded", function() {
         $$('passwordless-code').focus();
         $$('submit-passwordless-code').onclick = () => {
             submitCode($$('passwordless-code').value);
-        }
+        };
     };
 
     $$('submit-passwordless-email').onclick = startPasswordless;

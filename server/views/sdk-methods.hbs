@@ -1,0 +1,29 @@
+<!--Identity-->
+{{> methods/login }}
+{{> methods/loginUrl }}
+{{> methods/simpleMethod name="hasSession" showResult=true module="Identity"}}
+{{> methods/simpleMethod name="isLoggedIn" showResult=true module="Identity"}}
+{{> methods/simpleMethod name="logSettings" module="Identity"}}
+{{> methods/simpleMethod name="clearCachedUserSession" module="Identity"}}
+{{> methods/simpleMethod name="isConnected" showResult=true module="Identity"}}
+{{> methods/simpleMethod name="getUser" showResult=true module="Identity"}}
+{{> methods/simpleMethod name="getUserId" showResult=true module="Identity"}}
+{{> methods/simpleMethod name="getUserSDRN" showResult=true module="Identity"}}
+{{> methods/simpleMethod name="getUserUuid" showResult=true module="Identity"}}
+{{> methods/simpleMethod name="getUserContextData" showResult=true module="Identity"}}
+{{> methods/simpleMethod name="logout" module="Identity"}}
+{{> methods/simpleMethod name="logoutUrl" showResult=true module="Identity"}}
+{{> methods/simpleMethod name="accountUrl" showResult=true module="Identity"}}
+{{> methods/simpleMethod name="phonesUrl" showResult=true module="Identity"}}
+{{> methods/simpleMethod name="getSpId" showResult=true module="Identity"}}
+{{> methods/getExternalId}}
+
+
+<!--Monetization-->
+{{> methods/hasAccess}}
+{{> methods/clearCachedAccessResult}}
+{{> methods/simpleMethod name="subscriptionsUrl" showResult=true module="Monetization"}}
+{{> methods/simpleMethod name="productsUrl" showResult=true module="Monetization"}}
+
+<!--Payment-->
+{{> methods/simpleMethod name="purchaseHistoryUrl" showResult=true module="Payment"}}

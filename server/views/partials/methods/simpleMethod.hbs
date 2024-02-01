@@ -1,0 +1,37 @@
+<!-- {{name}} -->
+<div id="{{name}}" class="hidden nav-target p-4">
+    <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">
+        {{name}}
+    </h3>
+    <a href="https://schibsted.github.io/account-sdk-browser/{{module}}.html#{{name}}" target="_blank">
+        Documentation: <span class="text-blue-600 hover:underline">#{{name}}</span>
+    </a>
+
+    <pre>
+        <code class="language-javascript">
+const {{toLowerCase module}} = new {{module}}({...})
+- {{toLowerCase module}}.{{name}}();
+        </code>
+    </pre>
+
+    <button type="button" id="run-{{name}}"
+            class="text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+        Run
+    </button>
+</div>
+<script>
+    document.querySelector('#run-{{name}}').addEventListener('click',async ()=>{
+        // eslint-disable-next-line no-undef
+        try{
+            {{#if showResult}}
+            showResults(
+            {{/if}}
+            await {{toLowerCase module}}.{{name}}()
+            {{#if showResult}}
+            )
+            {{/if}}
+        }catch (error){
+            showResults(JSON.stringify(error))
+        }
+    })
+</script>

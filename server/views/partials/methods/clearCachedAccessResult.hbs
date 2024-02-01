@@ -1,0 +1,47 @@
+<div id="clearCachedAccessResult" class="hidden nav-target p-4">
+    <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">
+        clearCachedAccessResult
+    </h3>
+    <a href="https://schibsted.github.io/account-sdk-browser/Monetization.html#clearCachedAccessResult"
+       target="_blank">
+        Documentation: <span class="text-blue-600 hover:underline">#clearCachedAccessResult</span>
+    </a>
+
+    <pre>
+        <code class="language-javascript">
+const monetization = new Monetization({...})
+- monetization.clearCachedAccessResult(productIds, userId);
+        </code>
+    </pre>
+
+    <div>
+        <label for="cached-product-ids" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Product ids
+        </label>
+        <input placeholder="Values should be coma separated, like: 1234,5677,8900" type="text" id="cached-product-ids" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    </div>
+
+    <div class="my-4 mb-6">
+        <label for="cached-user-id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            User id
+        </label>
+        <input type="text"  id="cached-user-id" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    </div>
+
+    <button type="button" id="run-clearCachedAccessResult"
+            class="text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+        Run
+    </button>
+</div>
+<script>
+    document.querySelector('#run-clearCachedAccessResult').addEventListener('click', async () => {
+        try {
+                await monetization.clearCachedAccessResult(
+                    document.querySelector('#cached-product-ids').value.split(','),
+                    document.querySelector('#cached-user-id').value
+                );
+        } catch (error) {
+            showResults(String(error))
+        }
+    })
+</script>

@@ -1,29 +1,37 @@
-'use strict';
-
 const express = require('express');
 const session = require('express-session');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 
+const { engine } =require('express-handlebars');
 const config = require('./config');
-const pkgJson = require('../package');
+const pkgJson = require('../package.json');
 const asyncMW = require('./asyncMW');
 const filterExt = require('./filterExt');
 const oauth = require('./oauth');
-const hbs = require('hbs');
+const { documentationHelpers} = require("./constants");
+
 
 const app = express();
 
+app.engine('.hbs', engine({
+    extname: '.hbs',
+    helpers: {
+        isNotSpidProd (opts) {
+            return ['DEV','PRE'].includes(config.spidEnv) ? opts.fn(this) : opts.inverse(this)
+        },
+        isSpidProdWithActiveBankId (opts) {
+            return ['PRO','PRO_NO','PRO_FI'].includes(config.spidEnv) ? opts.fn(this) : opts.inverse(this)
+        },
+        json(context) {
+            return JSON.stringify(context, null, 2);
+        },
+        toLowerCase:(context)=>context.toLowerCase()
+    }
+}));
+
+app.set('view engine', '.hbs');
 app.set('views', `${__dirname}/views`);
-app.set('view engine', 'hbs');
-
-hbs.registerHelper(`isNotSpidProd`, function (opts) {
-    return ['DEV','PRE'].includes(config.spidEnv) ? opts.fn(this) : opts.inverse(this)
-});
-
-hbs.registerHelper(`isSpidProdWithActiveBankId`, function (opts) {
-    return ['PRO','PRO_NO','PRO_FI'].includes(config.spidEnv) ? opts.fn(this) : opts.inverse(this)
-});
 
 app.use(helmet());
 
@@ -38,13 +46,15 @@ app.use(session({
     secret: config.cookieSecret,
     unset: 'destroy',
     resave: false,
-    cookie: { httpOnly: true, sameSite: 'lax' }
+    cookie: { httpOnly: true, sameSite: 'lax' },
+    secure: true,
+    maxAge: 60 * 60 * 1000
 }));
 
 oauth.initialize(app);
 
 app.get('/', asyncMW(async (req, res) => {
-    const data = { pkgJson, config };
+    const data = {pkgJson, config};
     if (req.isAuthenticated()) {
         if (!req.user.userinfo) {
             // We came from a purchase flow, and our token doesn't have the 'openid' scope. Let's
@@ -53,17 +63,46 @@ app.get('/', asyncMW(async (req, res) => {
         }
         data.userInfo = req.user.userinfo;
     }
-    res.render('index', data);
+
+    return res.render('sdk-methods', {
+        ...documentationHelpers,
+        ...data
+    });
+}));
+
+app.get('/legacy', asyncMW(async (req, res) => {
+    const data = {pkgJson, config};
+    if (req.isAuthenticated()) {
+        if (!req.user.userinfo) {
+            // We came from a purchase flow, and our token doesn't have the 'openid' scope. Let's
+            // try to redirect to /oauth to "quickly fetch" a token
+            return res.redirect('/oauth');
+        }
+        data.userInfo = req.user.userinfo;
+    }
+
+    return res.render('legacy-index', {
+        layout: false,
+        ...data
+    });
 }));
 
 app.get('/userinfo', (req, res) => {
     if (req.isAuthenticated() && req.user.userinfo) {
         return res.json(req.user.userinfo);
     }
-    res.status(401).send(`No token with 'openid' scope available`);
+
+    return res.status(401).send(`No token with 'openid' scope available`);
 });
 
-app.get('/isloggedin', (req, res) => res.send({ isLoggedin: req.isAuthenticated() }));
+app.get('/isloggedin', (req, res) => {
+    let userInfo;
+    if(req.user && req.user.userinfo){
+        userInfo = req.user.userinfo
+    }
+
+    return res.json({ isLoggedin: req.isAuthenticated(), userInfo  });
+});
 
 app.get('/safepage',
     (req, res, next)=>{
@@ -84,7 +123,7 @@ app.get('/safepage',
             console.log('Congratulations! You purchased something');
         }
         if (state.popup) {
-            res.render('safepage');
+            res.render('safepage', {layout: false});
         } else {
             res.redirect('/');
         }
@@ -100,7 +139,7 @@ app.get('/session-exchange-safepage', oauth.passport.authenticate('oauth'), asyn
         + ` login attempt, and should be set when the frontend calls 'login(...)'`);
     }
     if (state.popup) {
-        res.render('safepage');
+        res.render('safepage', {layout: false});
     } else {
         res.redirect('/');
     }
@@ -137,7 +176,7 @@ app.get('/.well-known/apple-app-site-association', (_, res) => {
 app.get('/.well-known/assetlinks.json', (_, res) => {
     if (config.androidApps) {
         const associations = config.androidApps.map(appConfig => {
-            let [packageName, certFingerprint] = appConfig.split('=');
+            const [packageName, certFingerprint] = appConfig.split('=');
             return {
                 'relation': ['delegate_permission/common.handle_all_urls'],
                 'target': {
@@ -170,6 +209,7 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
     console.error('Express error handler is called (a middleware thrown): ', err);
     if (typeof err !== 'object' || err === null) {
+        // eslint-disable-next-line no-param-reassign
         err = { name: `NON-OBJECT ERROR: ${String(err)}` };
     }
     const status = err.status || 500;
@@ -177,7 +217,8 @@ app.use((err, req, res, next) => {
         status,
         message: err.message || 'No error message',
         name: err.name || 'No error name',
-        stack: err.stack || 'No stack trace is available'
+        stack: err.stack || 'No stack trace is available',
+        layout: false
     });
 });
 

@@ -1,11 +1,9 @@
-'use strict';
-
 const assert = require('assert');
 const http = require('http');
 const https = require('https');
 const fs = require('fs');
 
-const pkgJson = require('./package');
+const pkgJson = require('./package.json');
 const config = require('./server/config');
 const app = require('./server/app');
 
@@ -17,7 +15,7 @@ let server;
 if (config.enableTLS) {
     const credentials = {
         key: fs.readFileSync('./example_key.pem', 'utf8'),
-        cert: fs.readFileSync('./example_server.crt', 'utf8')
+        cert: fs.readFileSync('./example_server.crt', 'utf8'),
     };
     server = https.createServer(credentials, app);
 } else {
