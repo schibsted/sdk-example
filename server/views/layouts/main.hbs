@@ -36,7 +36,35 @@
 <body class="text-blueGray-700 antialiased">
 <noscript>You need to enable JavaScript to run this app.</noscript>
 <div id="root">
+    {{> header }}
     {{{body}}}
-</div>>
-    </body>
+    {{> footer }}
+</div>
+<script type="text/javascript">
+    /* Sidebar - Side navigation menu on mobile/responsive mode */
+    function toggleNavbar(collapseID) {
+        console.log('???');
+        document.getElementById(collapseID).classList.toggle("hidden");
+        document.getElementById(collapseID).classList.toggle("bg-white");
+        document.getElementById(collapseID).classList.toggle("m-2");
+        document.getElementById(collapseID).classList.toggle("py-3");
+        document.getElementById(collapseID).classList.toggle("px-6");
+    }
+
+    /* Function for dropdowns */
+    function openDropdown(event, dropdownID) {
+        let element = event.target;
+        while (element.nodeName !== "A") {
+            element = element.parentNode;
+        }
+        var popper = Popper.createPopper(element, document.getElementById(dropdownID), {
+            placement: "bottom-end"
+        });
+        document.getElementById(dropdownID).classList.toggle("hidden");
+        document.getElementById(dropdownID).classList.toggle("block");
+    }
+</script>
+
+<script src="/dist/tailwind.min.js"></script>
+</body>
 </html>

@@ -10,20 +10,27 @@ const pkgJson = require('../package');
 const asyncMW = require('./asyncMW');
 const filterExt = require('./filterExt');
 const oauth = require('./oauth');
-const hbs = require('hbs');
+// const hbs = require('hbs');
+
+const { engine } =require('express-handlebars');
+
 
 const app = express();
 
+
+app.engine('.hbs', engine({
+    extname: '.hbs',
+    helpers: {
+        isNotSpidProd: function (opts) {
+            return ['DEV','PRE'].includes(config.spidEnv) ? opts.fn(this) : opts.inverse(this)
+        },
+        isSpidProdWithActiveBankId: function (opts) {
+            return ['PRO','PRO_NO','PRO_FI'].includes(config.spidEnv) ? opts.fn(this) : opts.inverse(this)
+        }
+    }
+}));
+app.set('view engine', '.hbs');
 app.set('views', `${__dirname}/views`);
-app.set('view engine', 'hbs');
-
-hbs.registerHelper(`isNotSpidProd`, function (opts) {
-    return ['DEV','PRE'].includes(config.spidEnv) ? opts.fn(this) : opts.inverse(this)
-});
-
-hbs.registerHelper(`isSpidProdWithActiveBankId`, function (opts) {
-    return ['PRO','PRO_NO','PRO_FI'].includes(config.spidEnv) ? opts.fn(this) : opts.inverse(this)
-});
 
 app.use(helmet());
 
@@ -43,6 +50,11 @@ app.use(session({
 
 oauth.initialize(app);
 
+
+app.get('/tailwind', asyncMW(async (req, res) => {
+    res.render('tailwind');
+}));
+
 app.get('/', asyncMW(async (req, res) => {
     const data = { pkgJson, config };
     if (req.isAuthenticated()) {
@@ -53,7 +65,7 @@ app.get('/', asyncMW(async (req, res) => {
         }
         data.userInfo = req.user.userinfo;
     }
-    res.render('tailwind', data);
+    res.render('index', {...data, layout: false});
 }));
 
 app.get('/userinfo', (req, res) => {
@@ -75,7 +87,7 @@ app.get('/safepage', oauth.passport.authenticate('oauth'), asyncMW(async (req, r
         console.log('Congratulations! You purchased something');
     }
     if (state.popup) {
-        res.render('safepage');
+        res.render('safepage', {layout: false});
     } else {
         res.redirect('/');
     }
@@ -91,7 +103,7 @@ app.get('/session-exchange-safepage', oauth.passport.authenticate('oauth'), asyn
         + ` login attempt, and should be set when the frontend calls 'login(...)'`);
     }
     if (state.popup) {
-        res.render('safepage');
+        res.render('safepage', {layout: false});
     } else {
         res.redirect('/');
     }
@@ -168,7 +180,8 @@ app.use((err, req, res, next) => {
         status,
         message: err.message || 'No error message',
         name: err.name || 'No error name',
-        stack: err.stack || 'No stack trace is available'
+        stack: err.stack || 'No stack trace is available',
+        layout: false
     });
 });
 
