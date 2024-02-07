@@ -65,21 +65,30 @@ app.get('/userinfo', (req, res) => {
 
 app.get('/isloggedin', (req, res) => res.send({ isLoggedin: req.isAuthenticated() }));
 
-app.get('/safepage', oauth.passport.authenticate('oauth'), asyncMW(async (req, res, next) => {
-    const state = {};
-    if (req.query.state) {
-        const stateString = Buffer.from(req.query.state, 'base64').toString();
-        Object.assign(state, JSON.parse(stateString));
-    }
-    if (req.query.order_id) {
-        console.log('Congratulations! You purchased something');
-    }
-    if (state.popup) {
-        res.render('safepage');
-    } else {
-        res.redirect('/');
-    }
-}));
+app.get('/safepage',
+    (req, res, next)=>{
+        if(!req.query.state || !req.query.code){
+            return res.redirect('/');
+        }
+
+        return next();
+    },
+    oauth.passport.authenticate('oauth'),
+    asyncMW(async (req, res, next) => {
+        const state = {};
+        if (req.query.state) {
+            const stateString = Buffer.from(req.query.state, 'base64').toString();
+            Object.assign(state, JSON.parse(stateString));
+        }
+        if (req.query.order_id) {
+            console.log('Congratulations! You purchased something');
+        }
+        if (state.popup) {
+            res.render('safepage');
+        } else {
+            res.redirect('/');
+        }
+    }));
 
 app.get('/session-exchange-safepage', oauth.passport.authenticate('oauth'), asyncMW(async (req, res) => {
     const state = {};
