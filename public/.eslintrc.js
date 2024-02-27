@@ -1,9 +1,9 @@
 module.exports = {
-    "env": {
-        "browser": true
+    env: {
+        browser: true,
     },
-    "parserOptions": {
-        "ecmaVersion": 2017,
-        "sourceType": "module"
-    }
-}
+    parserOptions: {
+        ecmaVersion: 2020,
+        sourceType: 'module',
+    },
+};

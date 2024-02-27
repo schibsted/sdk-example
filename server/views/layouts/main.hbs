@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="theme-color" content="#000000"/>
+    <title>SDK example APP v{{pkgJson.version}}</title>
+    <script>
+        // These configs will be filled by handlebars on the server side and js can access them
+        window.config = {
+            clientId: '{{config.clientId}}',
+            exampleProductId: '{{config.exampleProductId}}',
+            paymentPublisher: '{{config.paymentPublisher}}',
+            sessionDomain: '{{config.sessionDomain}}',
+            spidEnv: '{{config.spidEnv}}',
+            siteSpecificLogout: {{config.siteSpecificLogout}},
+        };
+            {{#if config.alternativeClient.paymentPromoCodeProduct}}
+            window.config.alternativeClient = {
+                paymentPromoCodeProduct: '{{config.alternativeClient.paymentPromoCodeProduct}}',
+                clientId: '{{config.alternativeClient.clientId}}',
+                publisher: '{{config.alternativeClient.publisher}}',
+                redirectUri: '{{config.alternativeClient.redirectUri}}',
+            };
+            {{/if}}
+        if (console && console.log) {
+            console.log(JSON.stringify(window.config, undefined, 2));
+        }
+    </script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script src="/dist/tailwind.min.js"></script>
+</head>
+<body class="text-blueGray-700 antialiased">
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<div id="root">
+    {{> nav }}
+    <div class="md:ml-64 bg-blueGray-50 md:mr-96" id="main-wrapper">
+        <div class="bg-pink-600 p-4 md:px-8 md:h-screen">
+            <div class="bg-white shadow-lg rounded">
+
+            {{{body}}}
+        </div>
+        </div>
+    </div>
+    {{> results }}
+    {{> footer }}
+</div>
+
+</body>
+</html>

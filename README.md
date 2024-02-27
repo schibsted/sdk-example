@@ -34,4 +34,4 @@ For this Example app a simple backend application is exposed.
 The contents for the backend application can be found in the `/server` directory.
 
 ### Account-sdk-browser usage
-The frontend code is placed in the `/public` directory, and usage of SDK can be found in [index.js](public/index.js).
+The frontend code is placed in the `/public` directory, and usage of SDK can be found in [login.js](public%2FsdkMethods%2Flogin.js).

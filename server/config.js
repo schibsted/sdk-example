@@ -1,5 +1,3 @@
-'use strict';
-
 // Load the .env file if it exists
 require('dotenv').config();
 const getenv = require('getenv');
@@ -18,7 +16,7 @@ config.clientSecret = getenv('CLIENT_SECRET');
 config.spidEnv = getenv('SPID_ENV', 'PRE');
 // For CORS to work properly in all browsers on localhost
 config.enableTLS = getenv.bool('SDK_EXAMPLE_ENABLE_TLS', false);
-const protocol = config.enableTLS ? 'https' : 'http'
+const protocol = config.enableTLS ? 'https' : 'http';
 // the public URL of the server (including port number if it's different from 80)
 config.siteOrigin = getenv('SITE_ORIGIN', `${protocol}://localhost:${config.port}`);
 // Name of the sessionId cookie

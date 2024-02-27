@@ -22,12 +22,12 @@ function initialize(app) {
     passport.deserializeUser((user, done) => done(null, user));
 
     const refreshStrategy = new Strategy({
-        refreshWindow: 20, // Time in seconds to perform a token refresh before it expires
+        refreshWindow: 60 * 60, // Time in seconds to perform a token refresh before it expires
         userProperty: 'ticket', // Active user property name to store OAuth tokens (so req.user.ticket...)
         authenticationURL: '/oauth', // URL to redirect unathorized users to
     });
 
-    passport.use('main', refreshStrategy);  //Main authorization strategy that authenticates
+    passport.use('main', refreshStrategy); // Main authorization strategy that authenticates
 
     function skipUserProfile(token, done) {
         try {
@@ -38,26 +38,28 @@ function initialize(app) {
         }
     }
 
-    var oauthStrategy = new OAuth2Strategy({
-        authorizationURL: `${config.oauthBase}oauth/authorize`,
-        tokenURL: `${config.oauthBase}oauth/token`,
-        clientID: config.clientId,
-        clientSecret: config.clientSecret,
-        callbackURL: `${config.siteOrigin}/safepage`,
-        skipUserProfile,
-    },
-    refreshStrategy.getOAuth2StrategyCallback() //Create a callback for OAuth2Strategy
+    const oauthStrategy = new OAuth2Strategy(
+        {
+            authorizationURL: `${config.oauthBase}oauth/authorize`,
+            tokenURL: `${config.oauthBase}oauth/token`,
+            clientID: config.clientId,
+            clientSecret: config.clientSecret,
+            callbackURL: `${config.siteOrigin}/safepage`,
+            skipUserProfile,
+        },
+        refreshStrategy.getOAuth2StrategyCallback(), // Create a callback for OAuth2Strategy
     );
 
     oauthStrategy.userProfile = async (token, done) => {
         try {
             const opts = { headers: { authorization: `Bearer ${token}` } };
             await axios.get(`${config.oauthBase}oauth/userinfo`, opts).then(
-                function (response) {
+                (response) => {
                     console.log(response.data);
                     const userinfo = response.data;
                     done(null, { userinfo });
-                });
+                },
+            );
         } catch (e) {
             done(e);
         }
@@ -66,7 +68,7 @@ function initialize(app) {
     const state = Buffer.from(JSON.stringify({ foo: 'bar' })).toString('base64');
     oauthStrategy.authorizationParams = () => ({ scope: 'openid profile', 'new-flow': 'true', state });
 
-    passport.use('oauth', oauthStrategy); //Strategy to perform regular OAuth2 code grant workflow
+    passport.use('oauth', oauthStrategy); // Strategy to perform regular OAuth2 code grant workflow
     refreshStrategy.useOAuth2Strategy(oauthStrategy);
 
     app.get('/oauth', passport.authenticate('oauth'));
@@ -76,4 +78,4 @@ module.exports = {
     initialize,
     introspector,
     passport,
-}
+};

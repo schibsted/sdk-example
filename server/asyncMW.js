@@ -19,7 +19,7 @@ function isPromiseLike(val) {
 function asyncMW(middleware) {
     return (req, res, next) => {
         try {
-            const result = middleware(req, res, next)
+            const result = middleware(req, res, next);
             if (isPromiseLike(result)) {
                 result.catch((err = 'undefined error') => next(err));
             }

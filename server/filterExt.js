@@ -7,8 +7,8 @@ const path = require('path');
  */
 function middlewareFactory(...whiteListExt) {
     const normalizedExts = whiteListExt
-        .map(s => s.charAt(0) === '.' ? s : '.' + s)
-        .map(s => s.toLowerCase());
+        .map((s) => (s.charAt(0) === '.' ? s : `.${s}`))
+        .map((s) => s.toLowerCase());
 
     /**
      * The actual middleware that filters requests based on their extensions
