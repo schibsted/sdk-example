@@ -16,7 +16,7 @@
         "watch": "nodemon server.js"
     },
     "dependencies": {
-        "@schibsted/account-sdk-browser": "4.8.7-beta.2",
+        "@schibsted/account-sdk-browser": "4.8.7-beta.4",
         "axios": "^1.6.5",
         "cookie-parser": "^1.4.6",
         "dotenv": "^16.3.1",
