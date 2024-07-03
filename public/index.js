@@ -279,6 +279,8 @@ document.addEventListener("DOMContentLoaded", function() {
             return acrs.join(' ');
         };
 
+        const frontendVersion = document.getElementById('use-v2-frontend').checked ? 'v2' : null;
+
         const popup = identity.login({
             state,
             scope: 'openid profile',
@@ -287,7 +289,9 @@ document.addEventListener("DOMContentLoaded", function() {
             newFlow: document.getElementById('use-new-flow').checked,
             loginHint: document.getElementById('preferred-email').value,
             oneStepLogin: document.getElementById('one-step-login').checked,
+            frontendVersion,
         });
+
         if (popup) {
             window.addEventListener("message", event => {
                 if (!(event.origin === window.location.origin || Object.is(event.source, popup))) {

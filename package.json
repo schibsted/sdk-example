@@ -1,7 +1,7 @@
 {
     "name": "sdk-example",
     "description": "An example website that uses Schibsted's browser SDK",
-    "version": "5.9.14",
+    "version": "5.9.15",
     "license": "MIT",
     "main": "server.js",
     "repository": {
@@ -16,7 +16,7 @@
         "watch": "nodemon server.js"
     },
     "dependencies": {
-        "@schibsted/account-sdk-browser": "^5.0.0",
+        "@schibsted/account-sdk-browser": "^5.0.2",
         "axios": "^1.6.5",
         "cookie-parser": "^1.4.6",
         "dotenv": "^16.3.1",
